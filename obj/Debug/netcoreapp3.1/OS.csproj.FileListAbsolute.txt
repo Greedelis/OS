@@ -1,0 +1,13 @@
+C:\Users\Andri\OneDrive\Desktop\Uni\OS\Antras\OS\bin\Debug\netcoreapp3.1\OS.exe
+C:\Users\Andri\OneDrive\Desktop\Uni\OS\Antras\OS\bin\Debug\netcoreapp3.1\OS.deps.json
+C:\Users\Andri\OneDrive\Desktop\Uni\OS\Antras\OS\bin\Debug\netcoreapp3.1\OS.runtimeconfig.json
+C:\Users\Andri\OneDrive\Desktop\Uni\OS\Antras\OS\bin\Debug\netcoreapp3.1\OS.runtimeconfig.dev.json
+C:\Users\Andri\OneDrive\Desktop\Uni\OS\Antras\OS\bin\Debug\netcoreapp3.1\OS.dll
+C:\Users\Andri\OneDrive\Desktop\Uni\OS\Antras\OS\bin\Debug\netcoreapp3.1\OS.pdb
+C:\Users\Andri\OneDrive\Desktop\Uni\OS\Antras\OS\obj\Debug\netcoreapp3.1\OS.csprojAssemblyReference.cache
+C:\Users\Andri\OneDrive\Desktop\Uni\OS\Antras\OS\obj\Debug\netcoreapp3.1\OS.csproj.CoreCompileInputs.cache
+C:\Users\Andri\OneDrive\Desktop\Uni\OS\Antras\OS\obj\Debug\netcoreapp3.1\OS.AssemblyInfoInputs.cache
+C:\Users\Andri\OneDrive\Desktop\Uni\OS\Antras\OS\obj\Debug\netcoreapp3.1\OS.AssemblyInfo.cs
+C:\Users\Andri\OneDrive\Desktop\Uni\OS\Antras\OS\obj\Debug\netcoreapp3.1\OS.dll
+C:\Users\Andri\OneDrive\Desktop\Uni\OS\Antras\OS\obj\Debug\netcoreapp3.1\OS.pdb
+C:\Users\Andri\OneDrive\Desktop\Uni\OS\Antras\OS\obj\Debug\netcoreapp3.1\OS.genruntimeconfig.cache
