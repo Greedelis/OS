@@ -9,7 +9,7 @@ public class CentralCPU{
     private uint TI; // Timer register
     private uint[] PTR = new uint[4];
 
-    private void SetStatusFlags(){
+    private void CMP(){ 
         int temp = AX - BX;
         if (temp == 0){
             ZF = true;
@@ -41,8 +41,4 @@ public class CentralCPU{
         }
         AX/=BX;
     }
-
-
-    
-
 }
