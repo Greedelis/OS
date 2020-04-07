@@ -42,8 +42,7 @@ public class CentralCPU{
         AX/=BX;
     }
 
-    // SUM, SUB, MUL ir DIV reik pabaigti daryti, kad dėl overflow, koks mūsų max value? 9999 (jei žodis 4 baitai, nes 1 char 1 byte, ar 2^32, nes 4 int byte palaiko tiek)?
-    // Dar ar mes naudosim ir neigiamus skaičius, ar tik teigiamus?
+
     
 
 }
