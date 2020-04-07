@@ -3,3 +3,5 @@ Dar ar mes naudosim ir neigiamus skaičius, ar tik teigiamus?
 Reik padaryt memory managmentą, kanalų įrenginį ir pusliapiavimo mechanizmą (tiesiog kažkokį bs, kaip paduodam atmintį vm'ui)
 reik normaliau apsirašyti programinius ir supervizoriaus pertrukimus (Mato ir Roberto https://docs.google.com/document/d/1yE3vEh-TjwlU1R5yuFZ4pTtEKhLWzyGvOj_eXla6pdU/edit )
 Šiek tiek pakoreguoti mūsų dokumentaciją 
+
+Mūsų pavyzdinės programos iš dokumentacijos turi veikti :D
