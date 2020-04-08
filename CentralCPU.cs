@@ -12,8 +12,10 @@ namespace OS {
         private uint[] PTR = new uint[4];
 
 
+        private Memory m_memory = new Memory(); // Idk how this will work, want to reuse same class for VM's
+
     //------------------------------------------------------------------- Palyginimas
-        private void CMP(){ 
+        public void CMP(){ 
             int temp = AX - BX;
             if (temp == 0){
                 ZF = true;

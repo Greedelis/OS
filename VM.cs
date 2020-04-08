@@ -13,8 +13,12 @@ namespace OS {
 
         public void LineByLineInput() {
             string input = string.Empty;
-            while (input != "stop") {
+
+            while (true) {
                 input = Console.ReadLine();
+                if (input == "stop")
+                    break;
+
                 m_parser.ExecuteCommand(input);
             }
         }

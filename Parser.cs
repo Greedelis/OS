@@ -42,6 +42,8 @@ namespace OS {
             { "_CMP", CommandType.CMP },
             { "LA", CommandType.LA },
             // ...
+            { "PRAX", CommandType.PRAX },
+            // ...
         };
 
         public void ExecuteCommand (string line) {
@@ -56,8 +58,13 @@ namespace OS {
                     m_cpu.LA(parsedParams.Item1, parsedParams.Item2);
                     break;
                 // ...
+                case CommandType.PRAX:
+                    m_cpu.PRAX();
+                    break;
+                // ...
                 case CommandType.ERROR:
-                    throw new Exception ("Bad command");
+                    Console.WriteLine("Bad command, no exception for now");
+                    break;
                 default:
                     throw new NotImplementedException ($"Command type: {type} is not implemented");
             }
@@ -76,8 +83,8 @@ namespace OS {
         }
 
         private (int, int) ParseParams (string line) {
-            if (line.Length != 4)
-                return (0, 0);
+            if (line.Length != 4) // All commands have 4 symbols
+                return (-1, -1);
 
             return (int.Parse(line[2].ToString()), int.Parse(line[3].ToString()));
         }
