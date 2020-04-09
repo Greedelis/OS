@@ -40,94 +40,109 @@ namespace OS {
 
         private static readonly Dictionary<string, CommandType> CommandRepresentations = new Dictionary<string, CommandType> {
             { "_CMP", CommandType.CMP },
+
             { "LA", CommandType.LA },
             { "SA", CommandType.SA },
-            // ...
             { "PRAX", CommandType.PRAX },
             { "PR", CommandType.PR },
-            //jumps
+            { "PA", CommandType.PA },
+            { "RDAX", CommandType.RDAX },
+            { "RD", CommandType.RD },
+            { "RDA", CommandType.RDA },
+            { "SWAP", CommandType.SWAP },
+
             { "JP", CommandType.JP },
             { "JM", CommandType.JM },
             { "JL", CommandType.JL },
-            { "JE", CommandType.JN },
-            { "JN", CommandType.JE },
+            { "JE", CommandType.JE },
+            { "JN", CommandType.JN },
             { "JX", CommandType.JX },
             { "JY", CommandType.JY },
-            //...
+
             { "HALT", CommandType.HALT },
-            // ...
+            { "SD", CommandType.SD },
         };
 
         public void ExecuteCommand (string line) {
             var type = ParseCommandType(line);
+            (int, int) duoParams;
+            int singleParam;
+            string stringParam;
 
             switch (type) {
                 case CommandType.CMP:
                     m_cpu.CMP();
                     break;
                 case CommandType.LA:
-                    var parsedParams = ParseParams(line);
-                    m_cpu.LA(parsedParams.Item1, parsedParams.Item2);
+                    duoParams = ParseParams(line);
+                    m_cpu.LA(duoParams.Item1, duoParams.Item2);
                     break;
-                // ...
+                case CommandType.SA:
+                    duoParams = ParseParams(line);
+                    m_cpu.SA(duoParams.Item1, duoParams.Item2);
+                    break;
                 case CommandType.PRAX:
                     m_cpu.PRAX();
                     break;
-                // ...
-                case CommandType.ERROR:
-                    Console.WriteLine("Bad command, no exception for now");
-                    break;
-                case CommandType.SA:
-                    parsedParams = ParseParams(line);
-                    m_cpu.SA(parsedParams.Item1, parsedParams.Item2);
-                    break;
                 case CommandType.PR:
-                    parsedParams = ParseParams(line);
-                    m_cpu.PR(parsedParams.Item1, parsedParams.Item2);
+                    duoParams = ParseParams(line);
+                    m_cpu.PR(duoParams.Item1, duoParams.Item2);
                     break;
                 case CommandType.PA:
+                    duoParams = ParseParams(line);
+                    m_cpu.PA(duoParams.Item1, duoParams.Item2);
                     break;
                 case CommandType.RDAX:
+                    m_cpu.RDAX();
                     break;
                 case CommandType.RD:
+                    duoParams = ParseParams(line);
+                    m_cpu.RD(duoParams.Item1, duoParams.Item2);
                     break;
                 case CommandType.RDA:
+                    singleParam = ParseSingleParam(line);
+                    m_cpu.RDA(singleParam);
                     break;
                 case CommandType.SWAP:
                     m_cpu.SWAP();
                     break;
                 case CommandType.JP:
-                    parsedParams = ParseParams(line);
-                    m_cpu.JP(parsedParams.Item1, parsedParams.Item2);
+                    duoParams = ParseParams(line);
+                    m_cpu.JP(duoParams.Item1, duoParams.Item2);
                     break;
                 case CommandType.JM:
-                    parsedParams = ParseParams(line);
-                    m_cpu.JM(parsedParams.Item1, parsedParams.Item2);
+                    duoParams = ParseParams(line);
+                    m_cpu.JM(duoParams.Item1, duoParams.Item2);
                     break;
                 case CommandType.JL:
-                    parsedParams = ParseParams(line);
-                    m_cpu.JL(parsedParams.Item1, parsedParams.Item2);
+                    duoParams = ParseParams(line);
+                    m_cpu.JL(duoParams.Item1, duoParams.Item2);
                     break;
                 case CommandType.JE:
-                    parsedParams = ParseParams(line);
-                    m_cpu.JE(parsedParams.Item1, parsedParams.Item2);
+                    duoParams = ParseParams(line);
+                    m_cpu.JE(duoParams.Item1, duoParams.Item2);
                     break;
                 case CommandType.JN:
-                    parsedParams = ParseParams(line);
-                    m_cpu.JN(parsedParams.Item1, parsedParams.Item2);
+                    duoParams = ParseParams(line);
+                    m_cpu.JN(duoParams.Item1, duoParams.Item2);
                     break;
                 case CommandType.JX:
-                    parsedParams = ParseParams(line);
-                    m_cpu.JX(parsedParams.Item1, parsedParams.Item2);
+                    duoParams = ParseParams(line);
+                    m_cpu.JX(duoParams.Item1, duoParams.Item2);
                     break;
                 case CommandType.JY:
-                    parsedParams = ParseParams(line);
-                    m_cpu.JY(parsedParams.Item1, parsedParams.Item2);
+                    duoParams = ParseParams(line);
+                    m_cpu.JY(duoParams.Item1, duoParams.Item2);
                     break;
                 case CommandType.HALT:
                     m_cpu.HALT();
                     break;
                 case CommandType.SD:
+                    stringParam = ParseStringData(line);
+                    m_cpu.SD(stringParam);
+                    break;
+                case CommandType.ERROR:
+                    Console.WriteLine("Bad command, no exception for now");
                     break;
                 default:
                     throw new NotImplementedException ($"Command type: {type} is not implemented");
@@ -151,6 +166,23 @@ namespace OS {
                 return (-1, -1);
 
             return (int.Parse(line[2].ToString()), int.Parse(line[3].ToString()));
+        }
+
+        private int ParseSingleParam (string line) {
+            if (line.Length != 4) // All commands have 4 symbols
+                return -1;
+
+            return int.Parse(line[3].ToString());
+        }
+
+        private string ParseStringData (string line) {
+            if (line.Length <= 4) // Command is 4 symbols, data comes after that until char '$'
+                return string.Empty;
+
+            var endCharLocation = line.IndexOf("$");
+            return endCharLocation > 4
+                ? line.Substring(4, endCharLocation)
+                : string.Empty;
         }
     }
 }
