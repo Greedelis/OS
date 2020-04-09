@@ -6,6 +6,11 @@ namespace OS {
     public enum CommandType {
         ERROR, // For bad commands
 
+        ADD,
+        SUB,
+        MUL,
+        DIV,
+
         CMP,
 
         LA,
@@ -39,6 +44,11 @@ namespace OS {
         }
 
         private static readonly Dictionary<string, CommandType> CommandRepresentations = new Dictionary<string, CommandType> {
+            { "_ADD", CommandType.ADD },
+            { "_SUB", CommandType.SUB },
+            { "_MUL", CommandType.MUL },
+            { "_DIV", CommandType.DIV },
+
             { "_CMP", CommandType.CMP },
 
             { "LA", CommandType.LA },
@@ -70,6 +80,18 @@ namespace OS {
             string stringParam;
 
             switch (type) {
+                case CommandType.ADD:
+                    m_cpu.ADD();
+                    break;                
+                case CommandType.SUB:
+                    m_cpu.SUB();
+                    break;                
+                case CommandType.MUL:
+                    m_cpu.MUL();
+                    break;                
+                case CommandType.DIV:
+                    m_cpu.DIV();
+                    break;
                 case CommandType.CMP:
                     m_cpu.CMP();
                     break;

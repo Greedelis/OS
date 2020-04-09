@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.IO;
+using System.Linq;
 
 namespace OS {
     public class VM {
@@ -12,7 +13,7 @@ namespace OS {
         }
 
         public void LineByLineInput() {
-            string input = string.Empty;
+            string input;
 
             while (true) {
                 input = Console.ReadLine();
@@ -21,6 +22,15 @@ namespace OS {
 
                 m_parser.ExecuteCommand(input);
             }
+        }
+
+        public void ReadFromFileInput(string filepath) {
+            var lines = File.ReadLines(filepath).ToList();
+            lines.ForEach(line => m_parser.ExecuteCommand(line));
+        }
+
+        public void HardCodedInput(List<string> lines) {
+            lines.ForEach(line => m_parser.ExecuteCommand(line));
         }
 
         public void Output() {
