@@ -89,7 +89,7 @@ namespace OS {
         //JMxy – Jump More, jei AX > BX (ZF ir CF yra 0), šoka į komandą adresu 16 * x + y
         public void JM(int x, int y)
         {
-            if (!ZF && !CF) //su flagais comparint ar AX > BX?
+            if (!ZF && !CF) //su flagais comparint ar AX > BX? // Yes, CMP paskutinis else tą padaro (pirmas if ==, antras AX < BX, paskutinis AX > BX)
             {
                 m_memory.ChangeMemoryPointer(16 * x + y);
             }
@@ -125,7 +125,7 @@ namespace OS {
         //JXxy – Jump More or Equal, jei AX >= BX, šoka į komandą adresu 16 * x + y
         public void JX(int x, int y)
         {
-            if (AX >= BX) //NOT SURE KAIP FLAGAI SU SITUO PAS MUS THATS WHY IM USIGN DIS
+            if ((!ZF && !CF) || ZF) //fixed
             {
                 m_memory.ChangeMemoryPointer(16 * x + y);
             }
@@ -134,7 +134,7 @@ namespace OS {
         //JYxy – Jump Less or Equal, jei AX <= BX, šoka į komandą adresu 16 * x + y
         public void JY(int x, int y)
         {
-            if (AX <= BX) //NOT SURE KAIP FLAGAI SU SITUO PAS MUS THATS WHY IM USIGN DIS
+            if (CF || ZF) // fixed
             {
                 m_memory.ChangeMemoryPointer(16 * x + y);
             }
