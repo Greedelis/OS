@@ -172,9 +172,6 @@ namespace OS {
         }
 
         private CommandType ParseCommandType(string line) {
-            if (line.Length != 4) // All commands have 4 symbols
-                return CommandType.ERROR;
-
             foreach (var command in CommandRepresentations) {
                 if (line.StartsWith(command.Key))
                     return command.Value;
@@ -203,7 +200,7 @@ namespace OS {
 
             var endCharLocation = line.IndexOf("$");
             return endCharLocation > 4
-                ? line.Substring(4, endCharLocation)
+                ? line[5..endCharLocation]
                 : string.Empty;
         }
     }
