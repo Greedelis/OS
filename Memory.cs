@@ -1,47 +1,48 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace OS {
-        class word{
-        private byte[] wordd = new byte[4]{0, 0, 0, 0};
+        class Word{
+        private byte[] _word = new byte[4]{0, 0, 0, 0};
 
-        public UInt32 toInt32(){
-            return (UInt32)Math.Pow(16,6) * wordd[0] + (UInt32)Math.Pow(16,4) * wordd[1] + (UInt32)Math.Pow(16,2) * wordd[2] + wordd[3];
+        public UInt32 ToInt32(){
+            return (UInt32)Math.Pow(16,6) * _word[0] + (UInt32)Math.Pow(16,4) * _word[1] + (UInt32)Math.Pow(16,2) * _word[2] + _word[3];
         }
-        public String toString(){
-            char[] temp_arr = {(char)wordd[0],(char)wordd[1],(char)wordd[2],(char)wordd[3]};
+        public String IntoString(){
+            char[] temp_arr = {(char)_word[0],(char)_word[1],(char)_word[2],(char)_word[3]};
             return new string(temp_arr);
         }
-        public void setValue(UInt32 newVal){
-            wordd[0] = (byte)(newVal/((UInt32)Math.Pow(16,6)));
-            newVal -= wordd[0] * (UInt32)Math.Pow(16,6);
-            wordd[1] = (byte)(newVal/((UInt32)Math.Pow(16,4)));
-            newVal -= wordd[1] * (UInt32)Math.Pow(16,4);
-            wordd[2] = (byte)(newVal/((UInt32)Math.Pow(16,2)));
-            wordd[3] = (byte)(newVal - wordd[2] * (UInt32)Math.Pow(16,2));
+        public void SetValue(UInt32 newVal){
+            _word[0] = (byte)(newVal/((UInt32)Math.Pow(16,6)));
+            newVal -= _word[0] * (UInt32)Math.Pow(16,6);
+            _word[1] = (byte)(newVal/((UInt32)Math.Pow(16,4)));
+            newVal -= _word[1] * (UInt32)Math.Pow(16,4);
+            _word[2] = (byte)(newVal/((UInt32)Math.Pow(16,2)));
+            _word[3] = (byte)(newVal - _word[2] * (UInt32)Math.Pow(16,2));
         }
-        public void setValue(string newVal){
+        public void SetValue(string newVal){
             int leng = newVal.Length;
             if(leng >= 4){
                 for(int i = 0; i < 4; i++){
-                    wordd[i] = (byte)newVal[i];
+                    _word[i] = (byte)newVal[i];
                 }
             }else if(leng < 4){
                 for(int i = 0; i < leng; i++){
-                    wordd[3-i] =  (byte)newVal[i];
+                    _word[3-i] =  (byte)newVal[i];
                 }
                 for(int y = leng-1; y < 4; y++){
-                    wordd[y]=0;
+                    _word[y]=0;
                 }
             }
         }
-        public void printValues(){
-            foreach (var item in wordd){
+        public void PrintValues(){
+            foreach (var item in _word){
                 Console.Write("{0} ", item);
             }
             Console.WriteLine();
         }
-        public void printCharValues(){
-            foreach (var item in wordd){
+        public void PrintCharValues(){
+            foreach (var item in _word){
                 Console.Write("{0} ", (char)item);
             }
             Console.WriteLine();
@@ -50,12 +51,21 @@ namespace OS {
     public class Memory {
         private static int wordsPerBlock = 16;
         private static int blocks = 80;
-        private word[] m_data = new word[wordsPerBlock*blocks]; // I don't fucking know
+        //private Word[] m_data = new Word[wordsPerBlock*blocks]; // I don't fucking know
+        private List<Word> m_data = new List<Word>(wordsPerBlock*blocks);
         private int memoryPointer = 0;
+
+        public Memory()
+        {
+            for (var i = 0; i < m_data.Capacity; i++)
+            {
+                m_data.Add(new Word());
+            }
+        }
 
         public bool ChangeMemoryPointer(int newPointer)
         {
-            if (newPointer < 0 && newPointer >= m_data.Length) //add conditions here I guess
+            if (newPointer < 0 && newPointer >= m_data.Count) //add conditions here I guess
                 return false;
             memoryPointer = newPointer;
             return true;
@@ -63,19 +73,19 @@ namespace OS {
         
         public uint GetFromMemory(int pointer)
         {
-            return m_data[pointer].toInt32();
+            return m_data[pointer].ToInt32();
         }
         
         public void PutToMemory(int pointer, uint data)
         {
-            m_data[pointer].setValue(data);
+            m_data[pointer].SetValue(data);
         }
         
         public void PrintMemory()
         {
             var spaceSeparatorInt = 4;
             var newLineSeparatorInt = 80;
-            for (var i = 0; i < m_data.Length; i++)
+            for (var i = 0; i < m_data.Count; i++)
             {
                 if(i % spaceSeparatorInt == 0)
                     Console.Write(" ");

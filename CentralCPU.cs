@@ -70,8 +70,10 @@ namespace OS {
             Console.WriteLine(AX);
         }
 
-        public void RDAX() {
-            
+        public void RDAX()
+        {
+            uint.TryParse(Console.ReadLine(), out var value);
+            AX = value;
         }
 
         public void PR(int x1, int x2)
@@ -167,7 +169,6 @@ namespace OS {
     public void HALT() //what does halt even do? closes the machine, resets it??? 
     {
         Environment.Exit(0);
-        
     }
 
     public void SD (string data) {
