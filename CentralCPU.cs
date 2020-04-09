@@ -14,7 +14,7 @@ namespace OS {
 
         private Memory m_memory = new Memory(); // Idk how this will work, want to reuse same class for VM's
 
-    //------------------------------------------------------------------- Palyginimas
+        //------------------------------------------------------------------- Palyginimas
         public void CMP(){ 
             int temp = AX - BX;
             if (temp == 0){
@@ -71,16 +71,70 @@ namespace OS {
         public void SWAP(){
             (AX,BX) = (BX, AX);  // Sakyčiau visai cool swapas apsirašo
         }
+        
+        //nesąlyginis jump į komandą adresu 16 * x + y
+        public void JPxy()
+        {
+            //jump somewhere
+        }
+
+        //JMxy – Jump More, jei AX > BX (ZF ir CF yra 0), šoka į komandą adresu 16 * x + y
+        public void JMxy()
+        {
+            if (!ZF && !CF) //su flagais comparint ar AX > BX?
+            {
+                //jump
+            }
+        }
+
+        //JLxy – Jump Less, jei AX < BX (CF = 1),  šoka į komandą adresu 16 * x + y
+        public void JLxy()
+        {
+            if (CF)
+            {
+                //jump
+            }
+        }
+        
+        //JExy – Jump Equal, jei AX = BX (ZF = 1),  šoka į komandą adresu 16 * x + y
+        public void JExy()
+        {
+            if (ZF)
+            {
+                //jump
+            }
+        }
+        
+        //JNxy – Jump Not Equal, jei AX != BX (ZF = 0), šoka į komandą adresu 16 * x + y
+        public void JNxy()
+        {
+            if (!ZF)
+            {
+                //jump
+            }
+        }
+        
+        //JXxy – Jump More or Equal, jei AX >= BX, šoka į komandą adresu 16 * x + y
+        public void JXxy()
+        {
+            if (AX >= BX) //NOT SURE KAIP FLAGAI SU SITUO PAS MUS THATS WHY IM USIGN DIS
+            {
+                //jump
+            }
+        }
+        
+        //JYxy – Jump Less or Equal, jei AX <= BX, šoka į komandą adresu 16 * x + y
+        public void JYxy()
+        {
+            if (AX <= BX) //NOT SURE KAIP FLAGAI SU SITUO PAS MUS THATS WHY IM USIGN DIS
+            {
+                //jump
+            }
+        }
     //------------------------------------------------------------------- Jump'ai
     /* TODO:
     •	Jump‘ai: 
-        *	JPxy – nesąlyginis jump į komandą adresu 16 * x + y
-        *	JMxy – Jump More, jei AX > BX (ZF ir CF yra 0), šoka į komandą adresu 16 * x + y
-        *	JLxy – Jump Less, jei AX < BX (CF = 1),  šoka į komandą adresu 16 * x + y
-        *	JExy – Jump Equal, jei AX = BX (ZF = 1),  šoka į komandą adresu 16 * x + y
-        *	JNxy – Jump Not Equal, jei AX != BX (ZF = 0), šoka į komandą adresu 16 * x + y
-        *	JXxy – Jump More or Equal, jei AX >= BX, šoka į komandą adresu 16 * x + y
-        *	JYxy – Jump Less or Equal, jei AX <= BX, šoka į komandą adresu 16 * x + y
+        *Implementint pacia sokimo funkcija
     •	HALT – programos valdymo pabaiga
     •	SDx1x2 data$ - įdeda pradedant adresu 16 * x1 + x2 visą data, kuri baigiasi simboliu $ (store data)
 
