@@ -32,6 +32,7 @@ namespace OS {
         JY,
 
         HALT,
+        MEMR,
         SD
     }
 
@@ -58,6 +59,7 @@ namespace OS {
             { "RDAX", CommandType.RDAX },
             { "SWAP", CommandType.SWAP }, 
             { "HALT", CommandType.HALT },
+            { "MEMR", CommandType.MEMR },
         };
 
         // 3 symbol commands
@@ -174,6 +176,9 @@ namespace OS {
                     break;
                 case CommandType.ERROR:
                     Console.WriteLine("Bad command, no exception for now");
+                    break;
+                case CommandType.MEMR:
+                    m_cpu.MEMR();
                     break;
                 default:
                     throw new NotImplementedException ($"Command type: {type} is not implemented");

@@ -83,16 +83,17 @@ namespace OS {
         
         public void PrintMemory()
         {
-            var spaceSeparatorInt = 4;
-            var newLineSeparatorInt = 80;
+            const int spaceSeparatorInt = 4;
+            const int newLineSeparatorInt = 80;
             for (var i = 0; i < m_data.Count; i++)
             {
                 if(i % spaceSeparatorInt == 0)
                     Console.Write(" ");
                 if(i % newLineSeparatorInt == 0)
                     Console.Write("\n");
-                Console.Write(m_data[i]);
+                Console.Write(m_data[i].ToInt32());
             }
+            Console.Write("\n");
         }
     }
 }
