@@ -62,8 +62,9 @@ namespace OS {
         •	RDAx1 – konstanta x1 užkraunama į registrą AX
         */
 
-        public void LA(int x1, int x2) {
-
+        public void LA(int x1, int x2)
+        {
+            AX = m_memory.GetFromMemory(16 * x1 + x2);
         }
 
         public void PRAX(){
@@ -90,12 +91,15 @@ namespace OS {
             m_memory.PutToMemory(16 * x1 + x2, AX);
         }
 
-        public void RD (int x1, int x2) {
-
+        public void RD (int x1, int x2) 
+        {
+            uint.TryParse(Console.ReadLine(), out var value);
+            m_memory.PutToMemory(16 * x1 + x2, value);
         }
 
-        public void RDA (int x1) {
-
+        public void RDA (int x1)
+        {
+            AX = (uint)x1;
         }
 
         public void SWAP(){
