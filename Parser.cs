@@ -43,6 +43,14 @@ namespace OS {
             { "LA", CommandType.LA },
             // ...
             { "PRAX", CommandType.PRAX },
+            //jumps
+            { "JP", CommandType.JP },
+            { "JM", CommandType.JM },
+            { "JL", CommandType.JL },
+            { "JE", CommandType.JN },
+            { "JN", CommandType.JE },
+            { "JX", CommandType.JX },
+            { "JY", CommandType.JY },
             // ...
         };
 
@@ -64,6 +72,53 @@ namespace OS {
                 // ...
                 case CommandType.ERROR:
                     Console.WriteLine("Bad command, no exception for now");
+                    break;
+                case CommandType.SA:
+                    break;
+                case CommandType.PR:
+                    break;
+                case CommandType.PA:
+                    break;
+                case CommandType.RDAX:
+                    break;
+                case CommandType.RD:
+                    break;
+                case CommandType.RDA:
+                    break;
+                case CommandType.SWAP:
+                    m_cpu.SWAP();
+                    break;
+                case CommandType.JP:
+                    parsedParams = ParseParams(line);
+                    m_cpu.JP(parsedParams.Item1, parsedParams.Item2);
+                    break;
+                case CommandType.JM:
+                    parsedParams = ParseParams(line);
+                    m_cpu.JM(parsedParams.Item1, parsedParams.Item2);
+                    break;
+                case CommandType.JL:
+                    parsedParams = ParseParams(line);
+                    m_cpu.JL(parsedParams.Item1, parsedParams.Item2);
+                    break;
+                case CommandType.JE:
+                    parsedParams = ParseParams(line);
+                    m_cpu.JE(parsedParams.Item1, parsedParams.Item2);
+                    break;
+                case CommandType.JN:
+                    parsedParams = ParseParams(line);
+                    m_cpu.JN(parsedParams.Item1, parsedParams.Item2);
+                    break;
+                case CommandType.JX:
+                    parsedParams = ParseParams(line);
+                    m_cpu.JX(parsedParams.Item1, parsedParams.Item2);
+                    break;
+                case CommandType.JY:
+                    parsedParams = ParseParams(line);
+                    m_cpu.JY(parsedParams.Item1, parsedParams.Item2);
+                    break;
+                case CommandType.HALT:
+                    break;
+                case CommandType.SD:
                     break;
                 default:
                     throw new NotImplementedException ($"Command type: {type} is not implemented");
