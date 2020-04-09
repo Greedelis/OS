@@ -8,7 +8,7 @@ namespace OS {
 
         public bool ChangeMemoryPointer(int newPointer)
         {
-            if (newPointer < 0) //add conditions here I guess
+            if (newPointer < 0 && newPointer >= m_data.Length) //add conditions here I guess
                 return false;
             MemoryPointer = newPointer;
             return true;
