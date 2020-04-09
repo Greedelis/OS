@@ -16,9 +16,11 @@ namespace OS {
         LA,
         SA,
         PRAX,
+        PRBX,
         PR,
         PA,
         RDAX,
+        RDBX,
         RD,
         RDA,
         SWAP,
@@ -56,7 +58,9 @@ namespace OS {
             { "_DIV", CommandType.DIV },
             { "_CMP", CommandType.CMP },
             { "PRAX", CommandType.PRAX },
+            { "PRBX", CommandType.PRBX },
             { "RDAX", CommandType.RDAX },
+            { "RDAX", CommandType.RDBX },
             { "SWAP", CommandType.SWAP }, 
             { "HALT", CommandType.HALT },
             { "MEMR", CommandType.MEMR },
@@ -180,6 +184,12 @@ namespace OS {
                     break;
                 case CommandType.MEMR:
                     m_cpu.MEMR();
+                    break;
+                case CommandType.PRBX:
+                    m_cpu.PRBX();
+                    break;
+                case CommandType.RDBX:
+                    m_cpu.RDBX();
                     break;
                 default:
                     throw new NotImplementedException ($"Command type: {type} is not implemented");

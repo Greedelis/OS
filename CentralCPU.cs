@@ -98,11 +98,21 @@ namespace OS {
         public void PRAX(){
             Console.WriteLine(AX);
         }
+        
+        public void PRBX(){
+            Console.WriteLine(BX);
+        }
 
         public void RDAX()
         {
             uint.TryParse(Console.ReadLine(), out var value);
             AX = value;
+        }
+        
+        public void RDBX()
+        {
+            uint.TryParse(Console.ReadLine(), out var value);
+            BX = value;
         }
 
         public void PR(int x1, int x2)
