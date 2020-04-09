@@ -13,6 +13,7 @@ namespace OS {
 
 
         private Memory m_memory = new Memory(); // Idk how this will work, want to reuse same class for VM's
+        private int MemoryPointer = 0; //Sitas intas parodo kur programos veikimas dabar yra??? idk
 
         //------------------------------------------------------------------- Palyginimas
         public void CMP(){ 
@@ -48,6 +49,18 @@ namespace OS {
             }
             AX/=BX;
         }
+        
+        //------------------------------------------------------------------- Memory changinimas
+        //I think it makes sense for us to have a function that modifies this (galim conditionu visokiu idet, kad maziau erroru butu). Returns true on success
+        public bool ChangeMemoryPointer(int newPointer)
+        {
+            if (newPointer < 0) //add conditions here I guess
+                return false;
+            MemoryPointer = newPointer;
+            return true;
+        }
+        
+        //-------------------------------------------------------------------
 
 
         //------------------------------------------------------------------- Darbas su Duomenimis
@@ -72,69 +85,69 @@ namespace OS {
             (AX,BX) = (BX, AX);  // Sakyčiau visai cool swapas apsirašo
         }
         
+        //------------------------------------------------------------------- Jump'ai, Not sure are correct mano mastymas cia
+        
         //nesąlyginis jump į komandą adresu 16 * x + y
-        public void JPxy()
+        public void JP(int x, int y)
         {
-            //jump somewhere
+            ChangeMemoryPointer(16 * x + y);
         }
 
         //JMxy – Jump More, jei AX > BX (ZF ir CF yra 0), šoka į komandą adresu 16 * x + y
-        public void JMxy()
+        public void JM(int x, int y)
         {
             if (!ZF && !CF) //su flagais comparint ar AX > BX?
             {
-                //jump
+                ChangeMemoryPointer(16 * x + y);
             }
         }
 
         //JLxy – Jump Less, jei AX < BX (CF = 1),  šoka į komandą adresu 16 * x + y
-        public void JLxy()
+        public void JL(int x, int y)
         {
             if (CF)
             {
-                //jump
+                ChangeMemoryPointer(16 * x + y);
             }
         }
         
         //JExy – Jump Equal, jei AX = BX (ZF = 1),  šoka į komandą adresu 16 * x + y
-        public void JExy()
+        public void JE(int x, int y)
         {
             if (ZF)
             {
-                //jump
+                ChangeMemoryPointer(16 * x + y);
             }
         }
         
         //JNxy – Jump Not Equal, jei AX != BX (ZF = 0), šoka į komandą adresu 16 * x + y
-        public void JNxy()
+        public void JN(int x, int y)
         {
             if (!ZF)
             {
-                //jump
+                ChangeMemoryPointer(16 * x + y);
             }
         }
         
         //JXxy – Jump More or Equal, jei AX >= BX, šoka į komandą adresu 16 * x + y
-        public void JXxy()
+        public void JX(int x, int y)
         {
             if (AX >= BX) //NOT SURE KAIP FLAGAI SU SITUO PAS MUS THATS WHY IM USIGN DIS
             {
-                //jump
+                ChangeMemoryPointer(16 * x + y);
             }
         }
         
         //JYxy – Jump Less or Equal, jei AX <= BX, šoka į komandą adresu 16 * x + y
-        public void JYxy()
+        public void JY(int x, int y)
         {
             if (AX <= BX) //NOT SURE KAIP FLAGAI SU SITUO PAS MUS THATS WHY IM USIGN DIS
             {
-                //jump
+                ChangeMemoryPointer(16 * x + y);
             }
         }
-    //------------------------------------------------------------------- Jump'ai
+    //-------------------------------------------------------------------
     /* TODO:
-    •	Jump‘ai: 
-        *Implementint pacia sokimo funkcija
     •	HALT – programos valdymo pabaiga
     •	SDx1x2 data$ - įdeda pradedant adresu 16 * x1 + x2 visą data, kuri baigiasi simboliu $ (store data)
 
