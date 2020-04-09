@@ -95,12 +95,12 @@ namespace OS {
             for (var i = 0; i < m_data.Count; i++)
             {
                 if(i % spaceSeparatorInt == 0)
-                    Console.Write(" ");
+                    Console.Write(" | ");
                 if(i % newLineSeparatorInt == 0)
                     Console.Write("\n");
-                Console.Write(m_data[i].ToInt32());
+                Console.Write($"{m_data[i].ToInt32()} ");
             }
-            Console.Write("\n");
+            Console.Write(" |\n");
         }
     }
 }

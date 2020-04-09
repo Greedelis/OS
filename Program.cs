@@ -25,7 +25,7 @@ namespace OS {
             "HALT",
         };
 
-        // Testing program for devs
+        // Testing program for devs <- DEVS OMEGALUL
         public static List<string> TestExample = new List<string> {
             "PRAX",
             "PRAX",
@@ -47,6 +47,7 @@ namespace OS {
             var vm = new VM(parser);
 
             vm.HardCodedInput(Example2);
+            //vm.LineByLineInput();
         }
     }
 }
