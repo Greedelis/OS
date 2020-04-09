@@ -3,18 +3,35 @@ using System.Collections.Generic;
 
 namespace OS {
     public class CentralCPU{
-    
-        public CentralCPU(){  // costructor, duh
-        }
-        private Boolean OF = false, CF = false, ZF = false, // SF's  gal galima ir kitaip aprašyt :D
-                        MODE = false; // 0 if user, 1 if supervisor
-        private uint AX, BX; //registers
-        private uint TI, PI, SI; // Timer register, Programing Interup register and Supervisor Interupt register (paskutinius du reik apsirašyt dokumentacijoje normaliai)
+
+        private bool OF = false;
+        private bool CF = false;
+        private bool ZF = false;
+
+        private bool MODE = false;
+
+        private uint AX = 0;
+        private uint BX = 0;
+
+        private int TI = 0;
+        private int PI = 0;
+        private int SI = 0;
+
         private uint[] PTR = new uint[4];
 
-
-        private Memory m_memory = new Memory(); // Idk how this will work, want to reuse same class for VM's
+        private readonly Memory m_memory = new Memory(); // Idk how this will work, want to reuse same class for VM's
         
+        public void Test() { // Checks for interupts
+            if (TI == 0) {
+                TimerInterupt();
+            }
+
+
+        }
+
+        public void TimerInterupt() {
+
+        }
 
         //------------------------------------------------------------------- Palyginimas
         public void CMP(){ 
