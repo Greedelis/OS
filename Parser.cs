@@ -43,24 +43,35 @@ namespace OS {
             m_cpu = cpu;
         }
 
-        private static readonly Dictionary<string, CommandType> CommandRepresentations = new Dictionary<string, CommandType> {
+        // We need to check which command is in line, but some commands have overlapping letters
+        // e.g. RD is start of RDA and RDAX too
+        // So we need command priorities
+
+        // Full 4 symbol commands
+        private static readonly Dictionary<string, CommandType> FirstPriorityCheckCommands = new Dictionary<string, CommandType> {
             { "_ADD", CommandType.ADD },
             { "_SUB", CommandType.SUB },
             { "_MUL", CommandType.MUL },
             { "_DIV", CommandType.DIV },
-
             { "_CMP", CommandType.CMP },
+            { "PRAX", CommandType.PRAX },
+            { "RDAX", CommandType.RDAX },
+            { "SWAP", CommandType.SWAP }, 
+            { "HALT", CommandType.HALT },
+        };
 
+        // 3 symbol commands
+        private static readonly Dictionary<string, CommandType> SecondPriorityCheckCommands = new Dictionary<string, CommandType> {
+            { "RDA", CommandType.RDA },
+        };
+
+        // 2 symbol commands
+        private static readonly Dictionary<string, CommandType> ThirdPriorityCheckCommands = new Dictionary<string, CommandType> {
             { "LA", CommandType.LA },
             { "SA", CommandType.SA },
-            { "PRAX", CommandType.PRAX },
             { "PR", CommandType.PR },
             { "PA", CommandType.PA },
-            { "RDAX", CommandType.RDAX },
             { "RD", CommandType.RD },
-            { "RDA", CommandType.RDA },
-            { "SWAP", CommandType.SWAP },
-
             { "JP", CommandType.JP },
             { "JM", CommandType.JM },
             { "JL", CommandType.JL },
@@ -68,8 +79,6 @@ namespace OS {
             { "JN", CommandType.JN },
             { "JX", CommandType.JX },
             { "JY", CommandType.JY },
-
-            { "HALT", CommandType.HALT },
             { "SD", CommandType.SD },
         };
 
@@ -172,7 +181,17 @@ namespace OS {
         }
 
         private CommandType ParseCommandType(string line) {
-            foreach (var command in CommandRepresentations) {
+            foreach (var command in FirstPriorityCheckCommands) {
+                if (line.StartsWith(command.Key))
+                    return command.Value;
+            }
+
+            foreach (var command in SecondPriorityCheckCommands) {
+                if (line.StartsWith(command.Key))
+                    return command.Value;
+            }
+
+            foreach (var command in ThirdPriorityCheckCommands) {
                 if (line.StartsWith(command.Key))
                     return command.Value;
             }

@@ -10,14 +10,15 @@ namespace OS {
             "JP00",
         };
 
-        public static List<string> Example2 = new List<string> {
+        public static List<string> Example2 = new List<string> { // TODO change pdf and word for this example, because we do not have RDBX anymore
             "SD00 Iveskite pirma skaiciu$",
             "SD30 Iveskite antra skaiciu$",
             "SD50 Suma: $",
             "PA00",
             "RDAX",
             "PA30",
-            "RDBX",
+            "SWAP",
+            "RDAX",
             "_ADD",
             "PA50",
             "PRAX",
@@ -45,7 +46,7 @@ namespace OS {
 
             var vm = new VM(parser);
 
-            vm.HardCodedInput(TestExample);
+            vm.HardCodedInput(Example2);
         }
     }
 }
