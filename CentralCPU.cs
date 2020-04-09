@@ -13,7 +13,7 @@ namespace OS {
 
 
         private Memory m_memory = new Memory(); // Idk how this will work, want to reuse same class for VM's
-        private int MemoryPointer = 0; //Sitas intas parodo kur programos veikimas dabar yra??? idk
+        
 
         //------------------------------------------------------------------- Palyginimas
         public void CMP(){ 
@@ -52,14 +52,7 @@ namespace OS {
         
         //------------------------------------------------------------------- Memory changinimas
         //I think it makes sense for us to have a function that modifies this (galim conditionu visokiu idet, kad maziau erroru butu). Returns true on success
-        public bool ChangeMemoryPointer(int newPointer)
-        {
-            if (newPointer < 0) //add conditions here I guess
-                return false;
-            MemoryPointer = newPointer;
-            return true;
-        }
-        
+
         //-------------------------------------------------------------------
 
 
@@ -90,7 +83,7 @@ namespace OS {
         //nesąlyginis jump į komandą adresu 16 * x + y
         public void JP(int x, int y)
         {
-            ChangeMemoryPointer(16 * x + y);
+            m_memory.ChangeMemoryPointer(16 * x + y);
         }
 
         //JMxy – Jump More, jei AX > BX (ZF ir CF yra 0), šoka į komandą adresu 16 * x + y
@@ -98,7 +91,7 @@ namespace OS {
         {
             if (!ZF && !CF) //su flagais comparint ar AX > BX?
             {
-                ChangeMemoryPointer(16 * x + y);
+                m_memory.ChangeMemoryPointer(16 * x + y);
             }
         }
 
@@ -107,7 +100,7 @@ namespace OS {
         {
             if (CF)
             {
-                ChangeMemoryPointer(16 * x + y);
+                m_memory.ChangeMemoryPointer(16 * x + y);
             }
         }
         
@@ -116,7 +109,7 @@ namespace OS {
         {
             if (ZF)
             {
-                ChangeMemoryPointer(16 * x + y);
+                m_memory.ChangeMemoryPointer(16 * x + y);
             }
         }
         
@@ -125,7 +118,7 @@ namespace OS {
         {
             if (!ZF)
             {
-                ChangeMemoryPointer(16 * x + y);
+                m_memory.ChangeMemoryPointer(16 * x + y);
             }
         }
         
@@ -134,7 +127,7 @@ namespace OS {
         {
             if (AX >= BX) //NOT SURE KAIP FLAGAI SU SITUO PAS MUS THATS WHY IM USIGN DIS
             {
-                ChangeMemoryPointer(16 * x + y);
+                m_memory.ChangeMemoryPointer(16 * x + y);
             }
         }
         
@@ -143,7 +136,7 @@ namespace OS {
         {
             if (AX <= BX) //NOT SURE KAIP FLAGAI SU SITUO PAS MUS THATS WHY IM USIGN DIS
             {
-                ChangeMemoryPointer(16 * x + y);
+                m_memory.ChangeMemoryPointer(16 * x + y);
             }
         }
     //-------------------------------------------------------------------
