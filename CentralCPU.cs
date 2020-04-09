@@ -49,11 +49,6 @@ namespace OS {
             }
             AX/=BX;
         }
-        
-        //------------------------------------------------------------------- Memory changinimas
-        //I think it makes sense for us to have a function that modifies this (galim conditionu visokiu idet, kad maziau erroru butu). Returns true on success
-
-        //-------------------------------------------------------------------
 
 
         //------------------------------------------------------------------- Darbas su Duomenimis
@@ -74,6 +69,17 @@ namespace OS {
         public void PRAX(){
             Console.WriteLine(AX);
         }
+        
+        public void PR(int x1, int x2)
+        {
+            Console.WriteLine(m_memory.GetFromMemory(16 * x1 + x2));
+        }
+
+        public void SA(int x1, int x2)
+        {
+            m_memory.PutToMemory(16 * x1 + x2, AX);
+        }
+
         public void SWAP(){
             (AX,BX) = (BX, AX);  // Sakyčiau visai cool swapas apsirašo
         }
@@ -140,6 +146,13 @@ namespace OS {
             }
         }
     //-------------------------------------------------------------------
+
+    
+    public void HALT() //what does halt even do? closes the machine, resets it??? 
+    {
+        Environment.Exit(0);
+        
+    }
     /* TODO:
     •	HALT – programos valdymo pabaiga
     •	SDx1x2 data$ - įdeda pradedant adresu 16 * x1 + x2 visą data, kuri baigiasi simboliu $ (store data)

@@ -41,8 +41,10 @@ namespace OS {
         private static readonly Dictionary<string, CommandType> CommandRepresentations = new Dictionary<string, CommandType> {
             { "_CMP", CommandType.CMP },
             { "LA", CommandType.LA },
+            { "SA", CommandType.SA },
             // ...
             { "PRAX", CommandType.PRAX },
+            { "PR", CommandType.PR },
             //jumps
             { "JP", CommandType.JP },
             { "JM", CommandType.JM },
@@ -51,6 +53,8 @@ namespace OS {
             { "JN", CommandType.JE },
             { "JX", CommandType.JX },
             { "JY", CommandType.JY },
+            //...
+            { "HALT", CommandType.HALT },
             // ...
         };
 
@@ -74,8 +78,12 @@ namespace OS {
                     Console.WriteLine("Bad command, no exception for now");
                     break;
                 case CommandType.SA:
+                    parsedParams = ParseParams(line);
+                    m_cpu.SA(parsedParams.Item1, parsedParams.Item2);
                     break;
                 case CommandType.PR:
+                    parsedParams = ParseParams(line);
+                    m_cpu.PR(parsedParams.Item1, parsedParams.Item2);
                     break;
                 case CommandType.PA:
                     break;
@@ -117,6 +125,7 @@ namespace OS {
                     m_cpu.JY(parsedParams.Item1, parsedParams.Item2);
                     break;
                 case CommandType.HALT:
+                    m_cpu.HALT();
                     break;
                 case CommandType.SD:
                     break;
