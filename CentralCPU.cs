@@ -118,9 +118,14 @@ namespace OS {
                 var buffer = m_memory.GetFromMemory(16 * x1 + x2 + i);
                 var word = new Word(buffer);
                 var substring = word.IntoString();
-                Console.Write(substring);
-                if (substring.Contains('$')) 
+                if (substring.Contains('$'))
+                {
+                    substring = substring.Replace('$', (char)0);
+                    Console.Write(substring);
                     break;
+                }
+                Console.Write(substring);
+                    
                 i++;
             }
             Console.Write('\n');
