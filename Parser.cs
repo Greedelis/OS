@@ -60,7 +60,7 @@ namespace OS {
             { "PRAX", CommandType.PRAX },
             { "PRBX", CommandType.PRBX },
             { "RDAX", CommandType.RDAX },
-            { "RDAX", CommandType.RDBX },
+            { "RDBX", CommandType.RDBX },
             { "SWAP", CommandType.SWAP }, 
             { "HALT", CommandType.HALT },
             { "MEMR", CommandType.MEMR },
