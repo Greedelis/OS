@@ -69,15 +69,31 @@ namespace OS {
         public void PRAX(){
             Console.WriteLine(AX);
         }
-        
+
+        public void RDAX() {
+            
+        }
+
         public void PR(int x1, int x2)
         {
             Console.WriteLine(m_memory.GetFromMemory(16 * x1 + x2));
         }
 
+        public void PA (int x1, int x2) {
+
+        }
+
         public void SA(int x1, int x2)
         {
             m_memory.PutToMemory(16 * x1 + x2, AX);
+        }
+
+        public void RD (int x1, int x2) {
+
+        }
+
+        public void RDA (int x1) {
+
         }
 
         public void SWAP(){
@@ -153,9 +169,16 @@ namespace OS {
         Environment.Exit(0);
         
     }
+
+    public void SD (string data) {
+
+    }
+
     /* TODO:
     •	HALT – programos valdymo pabaiga
     •	SDx1x2 data$ - įdeda pradedant adresu 16 * x1 + x2 visą data, kuri baigiasi simboliu $ (store data)
+
+    
 
     */
 

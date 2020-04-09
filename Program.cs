@@ -1,7 +1,39 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace OS {
     public class Program {
+
+        // Examples from our docs
+        public static List<string> Example1 = new List<string> {
+            "SD00 JP00$",
+            "JP00",
+        };
+
+        public static List<string> Example2 = new List<string> {
+            "SD00 Iveskite pirma skaiciu$",
+            "SD30 Iveskite antra skaiciu$",
+            "SD50 Suma: $",
+            "PA00",
+            "RDAX",
+            "PA30",
+            "RDBX",
+            "_ADD",
+            "PA50",
+            "PRAX",
+            "HALT",
+        };
+
+        // Testing program for devs
+        public static List<string> TestExample = new List<string> {
+            "PRAX",
+            "PRAX",
+            "PRAX",
+            "PRAX",
+            "PRAX",
+            "PRAX",
+        };
+
         public static void Main(string[] args) {
             Console.WriteLine("you want some more of this bitch?");
 
@@ -12,7 +44,8 @@ namespace OS {
             var parser = new Parser(cpu);
 
             var vm = new VM(parser);
-            vm.LineByLineInput();
+
+            vm.HardCodedInput(TestExample);
         }
     }
 }
