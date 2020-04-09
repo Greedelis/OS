@@ -7,7 +7,7 @@ namespace OS {
         }
         private Boolean OF = false, CF = false, ZF = false, // SF's  gal galima ir kitaip aprašyt :D
                         MODE = false; // 0 if user, 1 if supervisor
-        private int AX, BX; //registers
+        private uint AX, BX; //registers
         private uint TI, PI, SI; // Timer register, Programing Interup register and Supervisor Interupt register (paskutinius du reik apsirašyt dokumentacijoje normaliai)
         private uint[] PTR = new uint[4];
 
@@ -17,7 +17,7 @@ namespace OS {
 
         //------------------------------------------------------------------- Palyginimas
         public void CMP(){ 
-            int temp = AX - BX;
+            Int64 temp = (Int64)AX - (Int64)BX;
             if (temp == 0){
                 ZF = true;
                 CF = false;

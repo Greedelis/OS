@@ -48,8 +48,9 @@ namespace OS {
         }
     }
     public class Memory {
-
-        private int[] m_data = new int[16 * 16 * 80]; // I don't fucking know
+        private static int wordsPerBlock = 16;
+        private static int blocks = 80;
+        private word[] m_data = new word[wordsPerBlock*blocks]; // I don't fucking know
         private int memoryPointer = 0;
 
         public bool ChangeMemoryPointer(int newPointer)
@@ -60,14 +61,14 @@ namespace OS {
             return true;
         }
         
-        public int GetFromMemory(int pointer)
+        public uint GetFromMemory(int pointer)
         {
-            return m_data[pointer];
+            return m_data[pointer].toInt32();
         }
         
-        public void PutToMemory(int pointer, int data)
+        public void PutToMemory(int pointer, uint data)
         {
-            m_data[pointer] = data;
+            m_data[pointer].setValue(data);
         }
         
         public void PrintMemory()
