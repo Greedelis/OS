@@ -5,6 +5,15 @@ namespace OS {
         class Word{
         private byte[] _word = new byte[4]{0, 0, 0, 0};
 
+        public Word()
+        {
+
+        }
+        public Word(UInt32 val)
+        {
+            SetValue(val);
+        }
+
         public UInt32 ToInt32(){
             return (UInt32)Math.Pow(16,6) * _word[0] + (UInt32)Math.Pow(16,4) * _word[1] + (UInt32)Math.Pow(16,2) * _word[2] + _word[3];
         }

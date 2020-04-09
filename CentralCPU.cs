@@ -109,23 +109,34 @@ namespace OS {
         {
             Console.WriteLine(m_memory.GetFromMemory(16 * x1 + x2));
         }
-
-        public void PA (int x1, int x2) {
-
+        
+        public void PA (int x1, int x2)
+        {
+            var i = 0;
+            while (true)
+            {
+                var buffer = m_memory.GetFromMemory(16 * x1 + x2 + i);
+                var word = new Word(buffer);
+                var substring = word.IntoString();
+                Console.Write(substring);
+                if (substring.Contains('$')) 
+                    break;
+                i++;
+            }
+            Console.Write('\n');
         }
         
         public void SD (int x1, int x2, string data)
         {
-            Console.WriteLine($"x1 = {x1}, x2= {x2}, data={data}");
             var word = new Word();
             var padCount = 0;
             if(data.Length % 4 != 0)
                 padCount = 4 - data.Length % 4;
             data = data.PadRight(data.Length + padCount, (char)0);
             var count = 0;
-            while (count  <= data.Length)
+            while (count < data.Length)
             {
-                word.SetValue(data.Substring(count,count + 4));
+                word.SetValue(data.Substring(count,4));
                 m_memory.PutToMemory(16 * x1 + x2 + count/4, word.ToInt32());
                 count += 4;
             }
