@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace OS {
     public class CentralCPU{
@@ -69,6 +70,7 @@ namespace OS {
         •	RDAX – nuskaitoma iš klaviatūros reikšmė ir padedama AX
         •	RDx1x2 – nuskaitoma iš klaviatūros reikšmė ir padedama adrese 16 * x1 + x2
         •	RDAx1 – konstanta x1 užkraunama į registrą AX
+        •	SDx1x2 data$ - įdeda pradedant adresu 16 * x1 + x2 visą data, kuri baigiasi simboliu $ (store data)
         */
 
         public void LA(int x1, int x2)
@@ -93,6 +95,15 @@ namespace OS {
 
         public void PA (int x1, int x2) {
 
+        }
+        
+        public void SD (int x1, int x2, string data)
+        {
+            //NOT WORKING YET
+            var wordList = new List<Word>();
+            var word = new Word();
+            m_memory.PutToMemory(16 * x1 + x2, word.ToInt32());
+            word.PrintCharValues();
         }
 
         public void SA(int x1, int x2)
@@ -184,9 +195,7 @@ namespace OS {
         Environment.Exit(0);
     }
 
-    public void SD (string data) {
-
-    }
+    
 
     /* TODO:
     •	HALT – programos valdymo pabaiga

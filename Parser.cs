@@ -171,8 +171,9 @@ namespace OS {
                     m_cpu.HALT();
                     break;
                 case CommandType.SD:
+                    duoParams = ParseParams(line);
                     stringParam = ParseStringData(line);
-                    m_cpu.SD(stringParam);
+                    m_cpu.SD(duoParams.Item1, duoParams.Item2, stringParam);
                     break;
                 case CommandType.ERROR:
                     Console.WriteLine("Bad command, no exception for now");
@@ -205,9 +206,6 @@ namespace OS {
         }
 
         private (int, int) ParseParams (string line) {
-            if (line.Length != 4) // All commands have 4 symbols
-                return (-1, -1);
-
             return (int.Parse(line[2].ToString()), int.Parse(line[3].ToString()));
         }
 
