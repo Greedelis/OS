@@ -222,7 +222,7 @@ namespace OS {
 
             var endCharLocation = line.IndexOf("$");
             return endCharLocation > 4
-                ? line[5..endCharLocation]
+                ? line[5..(endCharLocation + 1)]
                 : string.Empty;
         }
     }
