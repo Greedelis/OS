@@ -99,11 +99,19 @@ namespace OS {
         
         public void SD (int x1, int x2, string data)
         {
-            //NOT WORKING YET
-            var wordList = new List<Word>();
+            Console.WriteLine($"x1 = {x1}, x2= {x2}, data={data}");
             var word = new Word();
-            m_memory.PutToMemory(16 * x1 + x2, word.ToInt32());
-            word.PrintCharValues();
+            var padCount = 0;
+            if(data.Length % 4 != 0)
+                padCount = 4 - data.Length % 4;
+            data = data.PadRight(data.Length + padCount, (char)0);
+            var count = 0;
+            while (count  <= data.Length)
+            {
+                word.SetValue(data.Substring(count,count + 4));
+                m_memory.PutToMemory(16 * x1 + x2 + count/4, word.ToInt32());
+                count += 4;
+            }
         }
 
         public void SA(int x1, int x2)

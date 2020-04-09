@@ -22,16 +22,14 @@ namespace OS {
         }
         public void SetValue(string newVal){
             int leng = newVal.Length;
+            _word = new byte[]{0, 0, 0 ,0};
             if(leng >= 4){
                 for(int i = 0; i < 4; i++){
                     _word[i] = (byte)newVal[i];
                 }
             }else if(leng < 4){
                 for(int i = 0; i < leng; i++){
-                    _word[3-i] =  (byte)newVal[i];
-                }
-                for(int y = leng-1; y < 4; y++){
-                    _word[y]=0;
+                    _word[i] =  (byte)newVal[i];
                 }
             }
         }
