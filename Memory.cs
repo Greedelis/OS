@@ -117,12 +117,15 @@ namespace OS {
         public void PrintMemoryInts()
         {
             const int spaceSeparatorInt = 4;
+            const int blockSepararotInt = 16;
             const int newLineSeparatorInt = 80;
             for (var i = 0; i < m_data.Count; i++)
             {
-                if(i % spaceSeparatorInt == 0)
+                if(i % spaceSeparatorInt == 0 && i != 0)
                     Console.Write(" | ");
-                if(i % newLineSeparatorInt == 0)
+                if(i % blockSepararotInt == 0 && i != 0)
+                    Console.Write("|");
+                if(i % newLineSeparatorInt == 0 && i != 0)
                     Console.Write("\n");
                 Console.Write($"{m_data[i].ToInt32()} ");
             }
@@ -162,10 +165,13 @@ namespace OS {
         public void PrintMemoryChars()
         {
             const int spaceSeparatorInt = 1;
+            const int blockSepararotInt = 4;
             const int newLineSeparatorInt = 40;
             for (var i = 0; i < m_data.Count; i++)
             {
                 if(i % spaceSeparatorInt == 0 && i != 0)
+                    Console.Write("|");
+                if(i % blockSepararotInt == 0 && i != 0)
                     Console.Write("|");
                 if(i % newLineSeparatorInt == 0 && i != 0)
                     Console.Write("\n");

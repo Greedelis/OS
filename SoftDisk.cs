@@ -53,5 +53,10 @@ namespace OS
             return true;
 
         }
+
+        public List<string> OpenFile(string file)
+        {
+            return File.ReadAllLines(Path.Combine($"{_currentFolder}", file)).ToList();
+        }
     }
 }

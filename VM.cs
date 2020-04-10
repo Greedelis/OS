@@ -9,10 +9,12 @@ namespace OS {
         private readonly CentralCPU m_cpu;
         private readonly Parser m_parser;
         private readonly Memory m_memory = new Memory();
+        private SoftDisk m_disk;
 
-        public VM (CentralCPU cpu, Parser parser) {
+        public VM (CentralCPU cpu, Parser parser, SoftDisk disk) {
             m_cpu = cpu;
             m_parser = parser;
+            m_disk = disk;
         }
 
         public void StoreCommandsInMemory(List<string> lines) {
@@ -50,8 +52,8 @@ namespace OS {
             }
         }
 
-        public void ReadFromFileInput(string filepath) { // TODO: Change this to work from HDD instead
-            var lines = File.ReadLines(filepath).ToList();
+        public void ReadFromFileInput(string fileName) { // TODO: Change this to work from HDD instead
+            var lines = m_disk.OpenFile(fileName); //atidarys root/filename
             lines.ForEach(line => m_parser.ExecuteCommand(line));
         }
 

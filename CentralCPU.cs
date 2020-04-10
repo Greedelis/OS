@@ -34,7 +34,7 @@ namespace OS {
 
 
         public VM CreateVM() {
-            return new VM(this, m_parser);
+            return new VM(this, m_parser, hard);
         }
 
         public void Test() { // Checks for interupts
