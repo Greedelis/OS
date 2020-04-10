@@ -130,7 +130,7 @@ namespace OS {
 
         public void LA(int x1, int x2)
         {
-            AX = m_memory.GetFromMemory(16 * x1 + x2);
+            AX = m_memory.GetFromMemory(x1, x2);
         }
 
         public void PRAX(){
@@ -155,7 +155,7 @@ namespace OS {
 
         public void PR(int x1, int x2)
         {
-            Console.WriteLine(m_memory.GetFromMemory(16 * x1 + x2));
+            Console.WriteLine(m_memory.GetFromMemory(x1, x2));
         }
         
         public void PA (int x1, int x2)
@@ -163,7 +163,7 @@ namespace OS {
             var i = 0;
             while (true)
             {
-                var buffer = m_memory.GetFromMemory(16 * x1 + x2 + i);
+                var buffer = m_memory.GetFromMemory(x1, x2 + i);
                 var word = new Word(buffer);
                 var substring = word.IntoString();
                 if (substring.Contains('$'))
@@ -190,20 +190,20 @@ namespace OS {
             while (count < data.Length)
             {
                 word.SetValue(data.Substring(count,4));
-                m_memory.PutToMemory(16 * x1 + x2 + count/4, word.ToInt32());
+                m_memory.PutToMemory(x1, x2 + count/4, word.ToInt32());
                 count += 4;
             }
         }
 
         public void SA(int x1, int x2)
         {
-            m_memory.PutToMemory(16 * x1 + x2, AX);
+            m_memory.PutToMemory(x1, x2, AX);
         }
 
         public void RD (int x1, int x2) 
         {
             uint.TryParse(Console.ReadLine(), out var value);
-            m_memory.PutToMemory(16 * x1 + x2, value);
+            m_memory.PutToMemory(x1, x2, value);
         }
 
         public void RDA (int x1)

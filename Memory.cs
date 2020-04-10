@@ -82,8 +82,8 @@ namespace OS {
                 m_data.Add(new Word());
             }
         }
-        public string GetWordAsString(int pointer){
-            return m_data[pointer].ToString();
+        public string GetWordAsString(int blockNumber, int wordNumber){
+            return m_data[16*blockNumber+wordNumber].ToString();
         }
         public bool ChangeMemoryPointer(int newPointer) {
             if (newPointer < 0 && newPointer >= m_data.Count) //add conditions here I guess
@@ -92,26 +92,26 @@ namespace OS {
             return true;
         }
 
-        public uint GetFromMemory(int pointer) {
-            return m_data[pointer].ToInt32();
+        public uint GetFromMemory(int blockNumber, int wordNumber) {
+            return m_data[16*blockNumber+wordNumber].ToInt32();
         }
 
-        public uint GetFromMemory(int wordPointer, int bytePointer) { // Gets word and takes one of its bytes
-            return m_data[wordPointer].GetByte(bytePointer);
+        public uint GetFromMemory(int blockNumber, int wordNumber, int bytePointer) { // Gets word and takes one of its bytes
+            return m_data[16*blockNumber+wordNumber].GetByte(bytePointer);
         } 
 
-        public void PutToMemory(int pointer, uint data)
+        public void PutToMemory(int blockNumber, int wordNumber, uint data)
         {
-            m_data[pointer].SetValue(data);
+            m_data[16*blockNumber+wordNumber].SetValue(data);
         }
 
-        public void PutToMemory(int pointer, string data) 
+        public void PutToMemory(int blockNumber, int wordNumber, string data) 
         {
-            m_data[pointer].SetValue(data);
+             m_data[16*blockNumber+wordNumber].SetValue(data);
         }
 
-        public void PutToMemory(int wordPointer, int bytePointer, byte value) {
-            m_data[wordPointer].SetByte(bytePointer, value);
+        public void PutToMemory(int blockNumber, int wordNumber, int bytePointer, byte value) {
+            m_data[16*blockNumber+wordNumber].SetByte(bytePointer, value);
         }
 
         public void PrintMemoryInts()
