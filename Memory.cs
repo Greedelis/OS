@@ -87,7 +87,12 @@ namespace OS {
         {
             m_data[pointer].SetValue(data);
         }
-        
+
+        public void PutToMemory(int pointer, string data) 
+        {
+            m_data[pointer].SetValue(data);
+        }
+
         public void PrintMemory()
         {
             const int spaceSeparatorInt = 4;
