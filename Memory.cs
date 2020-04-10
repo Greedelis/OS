@@ -54,6 +54,21 @@ namespace OS {
             }
             Console.WriteLine();
         }
+
+        public byte GetByte(int bytePointer) {
+            if (bytePointer < 0 || bytePointer >= 4)
+                throw new Exception($"GetByte: Byte pointer is not in [0, 3]: {bytePointer}");
+
+            return _word[bytePointer];
+        }
+
+        public void SetByte(int bytePointer, byte value) {
+            if (bytePointer < 0 || bytePointer >= 4)
+                throw new Exception($"SetByte: Byte pointer is not in [0, 3]: {bytePointer}");
+
+            _word[bytePointer] = value;
+        }
+
     }
     public class Memory {
         private static int wordsPerBlock = 16;
