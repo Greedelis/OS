@@ -54,35 +54,50 @@ namespace OS {
             }
             Console.WriteLine();
         }
+
+        public byte GetByte(int bytePointer) {
+            if (bytePointer < 0 || bytePointer >= 4)
+                throw new Exception($"GetByte: Byte pointer is not in [0, 3]: {bytePointer}");
+
+            return _word[bytePointer];
+        }
+
+        public void SetByte(int bytePointer, byte value) {
+            if (bytePointer < 0 || bytePointer >= 4)
+                throw new Exception($"SetByte: Byte pointer is not in [0, 3]: {bytePointer}");
+
+            _word[bytePointer] = value;
+        }
+
     }
     public class Memory {
         private static int wordsPerBlock = 16;
         private static int blocks = 80;
         //private Word[] m_data = new Word[wordsPerBlock*blocks]; // I don't fucking know
-        private List<Word> m_data = new List<Word>(wordsPerBlock*blocks);
+        private List<Word> m_data = new List<Word>(wordsPerBlock * blocks);
         private int memoryPointer = 0;
 
-        public Memory()
-        {
-            for (var i = 0; i < m_data.Capacity; i++)
-            {
+        public Memory() {
+            for (var i = 0; i < m_data.Capacity; i++) {
                 m_data.Add(new Word());
             }
         }
 
-        public bool ChangeMemoryPointer(int newPointer)
-        {
+        public bool ChangeMemoryPointer(int newPointer) {
             if (newPointer < 0 && newPointer >= m_data.Count) //add conditions here I guess
                 return false;
             memoryPointer = newPointer;
             return true;
         }
-        
-        public uint GetFromMemory(int pointer)
-        {
+
+        public uint GetFromMemory(int pointer) {
             return m_data[pointer].ToInt32();
         }
-        
+
+        public uint GetFromMemory(int wordPointer, int bytePointer) { // Gets word and takes one of its bytes
+            return m_data[wordPointer].GetByte(bytePointer);
+        } 
+
         public void PutToMemory(int pointer, uint data)
         {
             m_data[pointer].SetValue(data);
@@ -91,6 +106,10 @@ namespace OS {
         public void PutToMemory(int pointer, string data) 
         {
             m_data[pointer].SetValue(data);
+        }
+
+        public void PutToMemory(int wordPointer, int bytePointer, byte value) {
+            m_data[wordPointer].SetByte(bytePointer, value);
         }
 
         public void PrintMemory()
