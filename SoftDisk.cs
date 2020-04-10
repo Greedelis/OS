@@ -41,7 +41,7 @@ namespace OS
 
         public bool ChangeDir(string folder)
         {
-            if (folder == "..")
+            if (folder == ".." && _currentFolder != root)
             {
                 var temp = _currentFolder.Split('\\').Last();
                 _currentFolder = Path.GetRelativePath(Path.Combine(root, ".."), Path.Combine( _currentFolder, "..")); //very ugly, bet tingiu galvot db kaip kitaip :D
