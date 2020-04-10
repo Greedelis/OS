@@ -69,7 +69,7 @@ namespace OS {
 
         public void ReadFromFileInput(string filename) { // TODO: Change this to work from HDD instead
             var lines = m_disk.OpenFile(filename); //atidarys root/filename
-            lines.ForEach(line => m_parser.ExecuteCommand(line));
+            StoreCommandsInMemory(lines);
         }
 
         public void HardCodedInput(List<string> lines) {
