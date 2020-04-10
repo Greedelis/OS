@@ -31,16 +31,13 @@ namespace OS {
         };
 
         public static void Main(string[] args) {
-            Console.WriteLine("i saw these 2 fine bitches walking my way");
+            Console.WriteLine("Yo what you girls doin tonight is what I wanted to say");
 
             var cpu = CentralCPU.Instance();
             var vm = cpu.CreateVM();
 
 
             vm.StoreCommandsInMemory(Example2);
-
-            cpu.MCHR();
-
             vm.ReadFromMemory();
         }
     }
