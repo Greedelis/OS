@@ -104,8 +104,8 @@ namespace OS {
         {
             try
                 {m_data[16*blockNumber+wordNumber].SetValue(data);}
-            catch(ArgumentOutOfRangeException){
-                //TODO
+            catch(ArgumentOutOfRangeException e){
+                Console.WriteLine(e);
             }
         }
 
@@ -113,8 +113,8 @@ namespace OS {
         {   
             try
                 {m_data[16*blockNumber+wordNumber].SetValue(data);}
-            catch(ArgumentOutOfRangeException){
-                //TODO
+            catch(ArgumentOutOfRangeException e){
+                Console.WriteLine(e);
             }
             
         }
@@ -168,8 +168,8 @@ namespace OS {
                 try{
                 if(m_data[16*block+i].ToInt32() != 0){
                     return false;
-                }}catch(ArgumentOutOfRangeException){
-                    // TODO ADD something here
+                }}catch(ArgumentOutOfRangeException e){
+                    Console.WriteLine(e);
                 }
             }
             return true;
