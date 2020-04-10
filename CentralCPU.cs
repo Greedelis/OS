@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OS {
     public class CentralCPU{
@@ -31,6 +32,25 @@ namespace OS {
 
         public void TimerInterupt() {
 
+        }
+
+        public void StoreCommandsInMemory(List<string> lines) {
+            var wordCounter = 0;
+
+            lines.ForEach(line => {
+                switch (line.Length) {
+                    case int n when n < 4:
+                        throw new Exception($"StoreCommandsInMemory: line length is less than 4: {line.Length}");
+                    case int n when n == 4:
+                        m_memory.PutToMemory(wordCounter++, line);
+                        break;
+                    case int n when n > 4:
+                        Parser.SplitToParts(line.Remove(4, 1), 4) // If command is more than 4 bytes, then 5th byte is space before additional data
+                            .ToList()
+                            .ForEach(part => m_memory.PutToMemory(wordCounter++, part));
+                        break;
+                }
+            });
         }
 
         //------------------------------------------------------------------- Palyginimas

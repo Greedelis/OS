@@ -240,5 +240,10 @@ namespace OS {
                 ? line[5..(endCharLocation + 1)]
                 : string.Empty;
         }
+
+        public static IEnumerable<string> SplitToParts(string data, int partLength) {
+            for (var i = 0; i < data.Length; i += partLength)
+                yield return data.Substring(i, Math.Min(partLength, data.Length - i));
+        }
     }
 }
