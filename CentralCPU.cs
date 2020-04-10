@@ -21,7 +21,8 @@ namespace OS {
         private uint[] PTR = new uint[4];
 
         private readonly Memory m_memory = new Memory(); // Idk how this will work, want to reuse same class for VM's
-        
+        private SoftDisk hard = new SoftDisk(); //not sure ar hardas cia, jei ka galesim movint
+
         public void Test() { // Checks for interupts
             if (TI == 0) {
                 TimerInterupt();
@@ -100,6 +101,24 @@ namespace OS {
         }
         
         //-------------------------------------------------------------------
+        
+        //------------------------------------------------------------------- Darbas su hard drive
+        public void CHDR(string folder) //Change dir (cd)
+        {
+            hard.ChangeDir(folder.Remove(folder.Length-1));
+        }
+        
+        public void SDIR() //ShowDir (dir)
+        {
+            foreach (var directory in hard.GetAllDirectories())
+            {
+                Console.WriteLine(directory);
+            }
+            foreach (var file in hard.GetAllFileInfo())
+            {
+                Console.WriteLine($"{file.Name} | {file.Length} Bytes");
+            }
+        }
 
 
         //------------------------------------------------------------------- Darbas su Duomenimis

@@ -36,7 +36,12 @@ namespace OS {
         HALT,
         MINT,
         MCHR,
-        SD
+        
+        SD,
+        //-----HARD DISK COMMANDS, NOT SURE AR CIA, JEI KAS PAKEISIM
+        CHDR,
+        SDIR,
+        
     }
 
     public class Parser {
@@ -66,6 +71,8 @@ namespace OS {
             { "HALT", CommandType.HALT },
             { "MINT", CommandType.MINT },
             { "MCHR", CommandType.MCHR },
+            { "CHDR", CommandType.CHDR },
+            { "SDIR", CommandType.SDIR },
         };
 
         // 3 symbol commands
@@ -195,6 +202,13 @@ namespace OS {
                     break;
                 case CommandType.MCHR:
                     m_cpu.MCHR();
+                    break;
+                case CommandType.CHDR:
+                    stringParam = ParseStringData(line);
+                    m_cpu.CHDR(stringParam);
+                    break;
+                case CommandType.SDIR:
+                    m_cpu.SDIR();
                     break;
                 default:
                     throw new NotImplementedException ($"Command type: {type} is not implemented");
