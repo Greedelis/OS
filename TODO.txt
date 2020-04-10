@@ -19,4 +19,4 @@ Jei dar nelabai aišku, ką mes turim aprašyti:
  Turim centrinį procesorių, su tam tikromis komandomis.
  Paduodam VM'ui kažkokias komandas
     VM'as kreipiasi į centrinį CPU ir jis atlieka tas komandas
-    VM'as gražina kažkokį rezultatą po viso darbo
+    VM'as gražina kažkokį rezultatą po viso darbo 
