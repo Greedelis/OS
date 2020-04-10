@@ -38,7 +38,7 @@ namespace OS {
 
 
             vm.StoreCommandsInMemory(Example2);
-            vm.HardCodedInput(TestExample);
+            vm.ReadFromMemory();
         }
     }
 }

@@ -48,8 +48,31 @@ namespace OS {
             var currentWord = 0;
 
             while (true) {
-                var x = m_memory.GetWordAsString(m_allowedBlocks[currentBlock], currentWord);
+                var str = m_memory.GetWordAsString(m_allowedBlocks[currentBlock], currentWord);
 
+                //// Jumps fucking suck
+                //if (m_parser.IsJump(type)) {
+                //    var newParams = m_parser.ParseParams(str);
+                //    currentBlock = newParams.Item1;
+                //    currentWord = newParams.Item2;
+                //    continue;
+                //}
+
+                if (m_parser.IsAdditionalBytesNeeded(str)) {
+                    str += " ";
+                    while (true) {
+                        var additionalData = m_memory.GetWordAsString(m_allowedBlocks[currentBlock], ++currentWord);
+                        str += additionalData;
+                        if (additionalData.Contains('$'))
+                            break;
+                    }
+                }
+
+                currentWord++;
+                if (currentWord > 15) {
+                    currentWord = 0;
+                    currentBlock++;
+                }
             }
         }
 

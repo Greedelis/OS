@@ -216,7 +216,30 @@ namespace OS {
             }
         }
 
-        private CommandType ParseCommandType(string line) {
+        public bool IsAdditionalBytesNeeded (string line) { // Returns true if additional bytes is needed
+            return ParseCommandType(line) switch {
+                CommandType.SD => true, // Only command to need additional bytes
+                CommandType.ERROR => throw new Exception($"Line '{line}' is not correct"),
+                _ => false,
+            };
+        }
+
+        public bool IsJump (CommandType type) {
+            switch (type) {
+                case CommandType.JE:
+                case CommandType.JL:
+                case CommandType.JM:
+                case CommandType.JN:
+                case CommandType.JP:
+                case CommandType.JX:
+                case CommandType.JY:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        public CommandType ParseCommandType(string line) {
             foreach (var command in FirstPriorityCheckCommands) {
                 if (line.StartsWith(command.Key))
                     return command.Value;
@@ -235,7 +258,7 @@ namespace OS {
             return CommandType.ERROR;
         }
 
-        private (int, int) ParseParams (string line) {
+        public (int, int) ParseParams (string line) {
             return (int.Parse(line[2].ToString(), NumberStyles.HexNumber), int.Parse(line[3].ToString(), NumberStyles.HexNumber));
         }
 
