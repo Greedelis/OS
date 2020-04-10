@@ -25,7 +25,7 @@ namespace OS {
             "HALT",
         };
 
-        // Testing program for devs <- DEVS OMEGALUL
+        // Testing program for losers <- DEVS OMEGALUL
         public static List<string> TestExample = new List<string> {
             "PRAX",
             "PRAX",
