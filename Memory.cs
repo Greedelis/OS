@@ -82,8 +82,8 @@ namespace OS {
                 m_data.Add(new Word());
             }
         }
-        public string GetWordAsString(int x, int y){
-            return m_data[16 * x + y].ToString();
+        public string GetWordAsString(int pointer){
+            return m_data[pointer].ToString();
         }
         public bool ChangeMemoryPointer(int newPointer) {
             if (newPointer < 0 && newPointer >= m_data.Count) //add conditions here I guess
