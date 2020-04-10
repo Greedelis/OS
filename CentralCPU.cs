@@ -34,7 +34,7 @@ namespace OS {
 
 
         public VM CreateVM() {
-            return new VM(this, m_parser, hard);
+            return new VM(this, m_parser, m_memory, m_memory.ReserveMemory());
         }
 
         public void Test() { // Checks for interupts
