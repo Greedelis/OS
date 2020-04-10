@@ -39,7 +39,13 @@ namespace OS {
                     case int n when n > 4:
                         Parser.SplitToParts(line.Remove(4, 1), 4) // If command is more than 4 bytes, then 5th byte is space before additional data
                             .ToList()
-                            .ForEach(part => m_memory.PutToMemory(m_allowedBlocks[currentBlock], wordCounter++, part));
+                            .ForEach(part => {
+                                if (wordCounter > 15) { // Jump into next block
+                                    wordCounter = 0;
+                                    currentBlock++;
+                                }
+                                m_memory.PutToMemory(m_allowedBlocks[currentBlock], wordCounter++, part);
+                            });
                         break;
                 }
             });
@@ -63,7 +69,13 @@ namespace OS {
                 if (m_parser.IsAdditionalBytesNeeded(str)) {
                     str += " ";
                     while (true) {
-                        var additionalData = m_memory.GetWordAsString(m_allowedBlocks[currentBlock], ++currentWord);
+                        currentWord++;
+                        if (currentWord > 15) {
+                            currentWord = 0;
+                            currentBlock++;
+                        }
+
+                        var additionalData = m_memory.GetWordAsString(m_allowedBlocks[currentBlock], currentWord);
                         str += additionalData;
                         if (additionalData.Contains('$'))
                             break;

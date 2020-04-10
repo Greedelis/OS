@@ -38,6 +38,9 @@ namespace OS {
 
 
             vm.StoreCommandsInMemory(Example2);
+
+            cpu.MCHR();
+
             vm.ReadFromMemory();
         }
     }

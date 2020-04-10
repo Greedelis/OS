@@ -144,7 +144,7 @@ namespace OS {
             List<int> array = new List<int>();
             uint count = 0;
             int i = 0;
-            while(count < 15 || i < 80){
+            while(count < 15 && i < 80){
                 if(IsBlockEmpty(i)){
                     array.Add(i);
                     count++;
