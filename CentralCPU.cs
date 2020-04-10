@@ -68,17 +68,27 @@ namespace OS {
 
     //------------------------------------------------------------------- Aritmetines
         public void ADD(){
-            AX+=BX;   // jeigu AX overflowina, PI = 1, kuris reikštų perpildymą;
+            try{AX+=BX; }
+            catch(OverflowException){
+                PI=1;
+            }
+            
         }
         public void SUB(){
-            AX-=BX; // jeigu AX underflowina, PI = 1, kuris reikštų perpildymą;
+            try{AX-=BX; }
+            catch(OverflowException){
+                PI=1;
+            }
         }
         public void MUL(){
-            AX*=BX; // jeigu AX overflowina, PI = 1, kuris reikštų perpildymą;
+            try{AX*=BX; }
+            catch(OverflowException){
+                PI=1;
+            }
         }
         public void DIV(){
             if (BX == 0){
-                PI = 0; // Meta programinį pertraukimą, kuris reiškia dalybą iš 0 (reik pataisyt dokumentaciją)
+                PI = 0; 
                 return;
             }
             AX/=BX;

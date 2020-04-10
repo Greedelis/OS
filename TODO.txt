@@ -1,22 +1,2 @@
-1. SUM, SUB, MUL ir DIV reik pabaigti daryti, kad dėl overflow, koks mūsų max value? 9999 (jei žodis 4 baitai, nes 1 char 1 byte, ar 2^32, nes 4 int byte palaiko tiek)?
-    Dar ar mes naudosim ir neigiamus skaičius, ar tik teigiamus?
-2. Reik padaryt memory managmentą, kanalų įrenginį ir pusliapiavimo mechanizmą (tiesiog kažkokį bs, kaip paduodam atmintį vm'ui) <---- ATM SVARBIAUSIAS TASK
-3. reik normaliau apsirašyti programinius ir supervizoriaus pertrukimus (Mato ir Roberto https://docs.google.com/document/d/1yE3vEh-TjwlU1R5yuFZ4pTtEKhLWzyGvOj_eXla6pdU/edit ) <--- apačioje kaip matot pradėjau
-4. Šiek tiek pakoreguoti mūsų dokumentaciją <--- Šitą galėsiu apsiimti, kai daugiau kažko parašysim 
-
-Mūsų pavyzdinės programos iš dokumentacijos turi veikti :D
-
-
-
-
-PI= | Aprašymas
-0   | dalyba iš 0
-1   | overflow
-
-
-
-Jei dar nelabai aišku, ką mes turim aprašyti:
- Turim centrinį procesorių, su tam tikromis komandomis.
- Paduodam VM'ui kažkokias komandas
-    VM'as kreipiasi į centrinį CPU ir jis atlieka tas komandas
-    VM'as gražina kažkokį rezultatą po viso darbo 
+1. Reik padaryt kanalų įrenginį ir taimerį
+2. Šiek tiek pakoreguoti mūsų Dokumentaciją
