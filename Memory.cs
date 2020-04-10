@@ -83,7 +83,7 @@ namespace OS {
             }
         }
         public string GetWordAsString(int blockNumber, int wordNumber){
-            return m_data[16*blockNumber+wordNumber].ToString();
+            return m_data[16*blockNumber+wordNumber].IntoString();
         }
         public bool ChangeMemoryPointer(int newPointer) {
             if (newPointer < 0 && newPointer >= m_data.Count) //add conditions here I guess
