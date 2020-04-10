@@ -102,12 +102,21 @@ namespace OS {
 
         public void PutToMemory(int blockNumber, int wordNumber, uint data)
         {
-            m_data[16*blockNumber+wordNumber].SetValue(data);
+            try
+                {m_data[16*blockNumber+wordNumber].SetValue(data);}
+            catch(ArgumentOutOfRangeException){
+                //TODO
+            }
         }
 
         public void PutToMemory(int blockNumber, int wordNumber, string data) 
-        {
-             m_data[16*blockNumber+wordNumber].SetValue(data);
+        {   
+            try
+                {m_data[16*blockNumber+wordNumber].SetValue(data);}
+            catch(ArgumentOutOfRangeException){
+                //TODO
+            }
+            
         }
 
         public void PutToMemory(int blockNumber, int wordNumber, int bytePointer, byte value) {
@@ -156,8 +165,11 @@ namespace OS {
         }
         public bool IsBlockEmpty(int block){
             for(int i = 0; i < 16; i++){
-                if(m_data[16*block+i].ToInt32() == 0){
+                try{
+                if(m_data[16*block+i].ToInt32() != 0){
                     return false;
+                }}catch(ArgumentOutOfRangeException){
+                    // TODO ADD something here
                 }
             }
             return true;
