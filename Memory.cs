@@ -126,7 +126,37 @@ namespace OS {
             }
             Console.Write(" |\n");
         }
-        
+        public uint[] ReserveMemory(){
+            uint[] array = new uint[16];
+            uint count = 0;
+            uint i = 0;
+            while(count < 15 || i < 80){
+                if(IsBlockEmpty(i)){
+                    array[count] = i;
+                    count++;
+                }
+                i++;
+            }
+            if(count < 15){
+                throw new Exception ($"not enought free memory");
+            }
+            return array;
+        }
+        public void FreeMemory(uint[] array){
+            for(int i = 0; i < 16; i++){
+                for(int y = 0; y < 16; y++){
+                    m_data[16*(int)array[i]+y].SetValue(0);
+                }
+            }
+        }
+        public bool IsBlockEmpty(uint block){
+            for(int i = 0; i < 16; i++){
+                if(m_data[16*(int)block+i].ToInt32() == 0){
+                    return false;
+                }
+            }
+            return true;
+        }
         public void PrintMemoryChars()
         {
             const int spaceSeparatorInt = 1;
