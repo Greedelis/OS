@@ -88,7 +88,7 @@ namespace OS {
             m_data[pointer].SetValue(data);
         }
         
-        public void PrintMemory()
+        public void PrintMemoryInts()
         {
             const int spaceSeparatorInt = 4;
             const int newLineSeparatorInt = 80;
@@ -101,6 +101,22 @@ namespace OS {
                 Console.Write($"{m_data[i].ToInt32()} ");
             }
             Console.Write(" |\n");
+        }
+        
+        public void PrintMemoryChars()
+        {
+            const int spaceSeparatorInt = 1;
+            const int newLineSeparatorInt = 40;
+            for (var i = 0; i < m_data.Count; i++)
+            {
+                if(i % spaceSeparatorInt == 0 && i != 0)
+                    Console.Write("|");
+                if(i % newLineSeparatorInt == 0 && i != 0)
+                    Console.Write("\n");
+                var byteString = m_data[i].IntoString().Replace((char)0, '0');
+                Console.Write(byteString);
+            }
+            Console.Write("|\n");
         }
     }
 }

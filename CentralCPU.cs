@@ -70,9 +70,13 @@ namespace OS {
         
         //-------------------------------------------------------------------Print memory
 
-        public void MEMR()
+        public void MINT()
         {
-            m_memory.PrintMemory();
+            m_memory.PrintMemoryInts();
+        }
+        public void MCHR()
+        {
+            m_memory.PrintMemoryChars();
         }
         
         //-------------------------------------------------------------------
