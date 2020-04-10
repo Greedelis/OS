@@ -128,13 +128,13 @@ namespace OS {
             }
             Console.Write(" |\n");
         }
-        public uint[] ReserveMemory(){
-            uint[] array = new uint[16];
+        public List<uint> ReserveMemory(){
+            List<uint> array = new List<uint>();
             uint count = 0;
             uint i = 0;
             while(count < 15 || i < 80){
                 if(IsBlockEmpty(i)){
-                    array[count] = i;
+                    array.Add(i);
                     count++;
                 }
                 i++;
@@ -144,7 +144,7 @@ namespace OS {
             }
             return array;
         }
-        public void FreeMemory(uint[] array){
+        public void FreeMemory(List<uint> array){
             for(int i = 0; i < 16; i++){
                 for(int y = 0; y < 16; y++){
                     m_data[16*(int)array[i]+y].SetValue(0);
