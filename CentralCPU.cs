@@ -3,7 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace OS {
-    public class CentralCPU{
+    public class CentralCPU {
+
+        private static readonly CentralCPU m_instance = new CentralCPU();
+        private readonly Parser m_parser;
+
+        public static CentralCPU Instance() => m_instance;
+
+        private CentralCPU() {
+            m_parser = new Parser(this);
+        }
 
         private bool OF = false;
         private bool CF = false;
@@ -21,7 +30,11 @@ namespace OS {
         private uint[] PTR = new uint[4];
 
         private readonly Memory m_memory = new Memory(); // Idk how this will work, want to reuse same class for VM's
-        
+
+        public VM CreateVM() {
+            return new VM(this, m_parser);
+        }
+
         public void Test() { // Checks for interupts
             if (TI == 0) {
                 TimerInterupt();
@@ -32,25 +45,6 @@ namespace OS {
 
         public void TimerInterupt() {
 
-        }
-
-        public void StoreCommandsInMemory(List<string> lines) {
-            var wordCounter = 0;
-
-            lines.ForEach(line => {
-                switch (line.Length) {
-                    case int n when n < 4:
-                        throw new Exception($"StoreCommandsInMemory: line length is less than 4: {line.Length}");
-                    case int n when n == 4:
-                        m_memory.PutToMemory(wordCounter++, line);
-                        break;
-                    case int n when n > 4:
-                        Parser.SplitToParts(line.Remove(4, 1), 4) // If command is more than 4 bytes, then 5th byte is space before additional data
-                            .ToList()
-                            .ForEach(part => m_memory.PutToMemory(wordCounter++, part));
-                        break;
-                }
-            });
         }
 
         //------------------------------------------------------------------- Palyginimas

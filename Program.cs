@@ -25,29 +25,19 @@ namespace OS {
             "HALT",
         };
 
-        // Testing program for devs <- DEVS OMEGALUL
+        // Testing program for fking losers
         public static List<string> TestExample = new List<string> {
-            "PRAX",
-            "PRAX",
-            "PRAX",
-            "PRAX",
-            "PRAX",
-            "PRAX",
+            "MCHR",
         };
 
         public static void Main(string[] args) {
-            Console.WriteLine("you want some more of this bitch?");
+            Console.WriteLine("i saw these 2 fine bitches walking my way");
 
-            Console.WriteLine("My planned usage: write line by line commands");
-            Console.WriteLine("e.g. \"PRAX\" will execute PRAX command, try it out\n");
+            var cpu = CentralCPU.Instance();
+            var vm = cpu.CreateVM();
 
-            var cpu = new CentralCPU();
-            var parser = new Parser(cpu);
 
-            var vm = new VM(parser);
-
-            vm.HardCodedInput(Example2);
-            //vm.LineByLineInput();
+            vm.StoreCommandsInMemory(Example2);
         }
     }
 }
