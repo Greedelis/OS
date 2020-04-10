@@ -70,6 +70,8 @@ namespace OS {
                     }
                 }
 
+                m_parser.ExecuteCommand(str);
+
                 currentWord++;
                 if (currentWord > 15) {
                     currentWord = 0;
