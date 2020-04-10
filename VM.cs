@@ -8,13 +8,17 @@ namespace OS {
 
         private readonly CentralCPU m_cpu;
         private readonly Parser m_parser;
-        private readonly Memory m_memory = new Memory();
+        private readonly Memory m_memory;
+        private readonly List<int> m_allowedBlocks;
         private SoftDisk m_disk;
 
-        public VM (CentralCPU cpu, Parser parser, SoftDisk disk) {
+
+        public VM (CentralCPU cpu, Parser parser, Memory memory, List<int> allowedBlocks, SoftDisk disk) {
             m_cpu = cpu;
             m_parser = parser;
             m_disk = disk;
+            m_memory = memory;
+            m_allowedBlocks = allowedBlocks;
         }
 
         public void StoreCommandsInMemory(List<string> lines) {
@@ -37,7 +41,10 @@ namespace OS {
         }
 
         public void ReadFromMemory() {
-            
+            var currentWord = 0;
+            var currentByte = 0;
+
+            var x = m_memory.GetWordAsString(0);
         }
 
         public void LineByLineInput() {
