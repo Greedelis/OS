@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace OS {
 
@@ -235,14 +236,14 @@ namespace OS {
         }
 
         private (int, int) ParseParams (string line) {
-            return (int.Parse(line[2].ToString()), int.Parse(line[3].ToString()));
+            return (int.Parse(line[2].ToString(), NumberStyles.HexNumber), int.Parse(line[3].ToString(), NumberStyles.HexNumber));
         }
 
         private int ParseSingleParam (string line) {
             if (line.Length != 4) // All commands have 4 symbols
                 return -1;
 
-            return int.Parse(line[3].ToString());
+            return int.Parse(line[3].ToString(), NumberStyles.HexNumber);
         }
 
         private string ParseStringData (string line) {
