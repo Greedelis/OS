@@ -109,7 +109,7 @@ namespace OS {
             StoreCommandsInMemory(lines);
         }
 
-        public void ExecuteCommandFromFile()
+        public bool ExecuteCommandFromFile() //returns true if store in memory happened
         {
             //----------------Sita vieta probably reikes keist su kokia ekrano ir klaviaturos klasem
             Console.WriteLine("Type the name of a program that you'd like to run"); 
@@ -117,8 +117,10 @@ namespace OS {
             var input = Console.ReadLine();
             //------------------
             var fileContents = m_disk.OpenFile(input);
-            if(fileContents != null)
-                StoreCommandsInMemory(fileContents); 
+            if (fileContents == null) return false;
+            StoreCommandsInMemory(fileContents);
+            return true;
+
         }
 
         public void HardCodedInput(List<string> lines) {

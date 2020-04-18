@@ -24,8 +24,8 @@ namespace OS {
 
             //vm.StoreCommandsInMemory(Example2);
             //Sita ant loop gal?
-            vm.ExecuteCommandFromFile();
-            vm.ReadFromMemory();
+            if(vm.ExecuteCommandFromFile())
+                vm.ReadFromMemory();
         }
     }
 }
