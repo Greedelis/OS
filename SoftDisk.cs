@@ -7,8 +7,19 @@ namespace OS
 {
     public class SoftDisk
     {
-        private const string root = "root";
-        private string _currentFolder = "root";
+        private readonly string _root;
+        private string _currentFolder;
+
+        public SoftDisk()
+        {
+            var path = "root";
+            var wtfamIdoing = Path.GetFullPath(path);
+            DirectoryInfo sorry = Directory.GetParent(wtfamIdoing);
+            _root = Path.Combine(sorry.Parent?.Parent?.Parent?.FullName, path); //my finest creation
+            _currentFolder = _root;
+            if (!Directory.Exists(_root))
+                Directory.CreateDirectory(_root);
+        }
 
         public List<string> GetAllFilesInCurrentFolder()
         {
@@ -41,22 +52,25 @@ namespace OS
 
         public bool ChangeDir(string folder)
         {
-            if (folder == ".." && _currentFolder != root)
+            if (folder == ".." && _currentFolder != _root)
             {
                 var temp = _currentFolder.Split('\\').Last();
-                _currentFolder = Path.GetRelativePath(Path.Combine(root, ".."), Path.Combine( _currentFolder, "..")); //very ugly, bet tingiu galvot db kaip kitaip :D
+                _currentFolder = Path.GetRelativePath(Path.Combine(_root, ".."), Path.Combine( _currentFolder, "..")); //very ugly, bet tingiu galvot db kaip kitaip :D
                 return true;
             }
             var newDir = $"{_currentFolder}\\{folder}";
             if (!Directory.Exists(newDir)) return false;
             _currentFolder = newDir;
             return true;
-
         }
 
         public List<string> OpenFile(string file)
         {
-            return File.ReadAllLines(Path.Combine($"{_currentFolder}", file)).ToList();
+            var combinedPath = Path.Combine($"{_currentFolder}", file);
+            if(File.Exists(combinedPath))
+                return File.ReadAllLines(combinedPath).ToList();
+            Console.WriteLine($"{file} does not exist in this directory");
+            return null;
         }
     }
 }

@@ -104,9 +104,21 @@ namespace OS {
             }
         }
 
-        public void ReadFromFileInput(string filename) { // TODO: Change this to work from HDD instead
+        public void ReadFromFileInput(string filename) { 
             var lines = m_disk.OpenFile(filename); //atidarys root/filename
             StoreCommandsInMemory(lines);
+        }
+
+        public void ExecuteCommandFromFile()
+        {
+            //----------------Sita vieta probably reikes keist su kokia ekrano ir klaviaturos klasem
+            Console.WriteLine("Type the name of a program that you'd like to run"); 
+            m_cpu.SDIR();
+            var input = Console.ReadLine();
+            //------------------
+            var fileContents = m_disk.OpenFile(input);
+            if(fileContents != null)
+                StoreCommandsInMemory(fileContents); 
         }
 
         public void HardCodedInput(List<string> lines) {

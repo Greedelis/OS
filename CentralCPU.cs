@@ -123,6 +123,7 @@ namespace OS {
             {
                 Console.WriteLine($"{file.Name} | {file.Length} Bytes");
             }
+            Console.WriteLine();
         }
 
 

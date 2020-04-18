@@ -10,21 +10,6 @@ namespace OS {
             "JP00",
         };
 
-        public static List<string> Example2 = new List<string> { // TODO change pdf and word for this example, because we do not have RDBX anymore
-            "SD00 Iveskite pirma skaiciu$",
-            "SD30 Iveskite antra skaiciu$",
-            "SD50 Suma: $",
-            "PA00",
-            "RDAX",
-            "PA30",
-            "SWAP",
-            "RDAX",
-            "_ADD",
-            "PA50",
-            "PRAX",
-            "HALT",
-        };
-
         // Testing program for fking losers
         public static List<string> TestExample = new List<string> {
             "MCHR",
@@ -37,7 +22,9 @@ namespace OS {
             var vm = cpu.CreateVM();
 
 
-            vm.StoreCommandsInMemory(Example2);
+            //vm.StoreCommandsInMemory(Example2);
+            //Sita ant loop gal?
+            vm.ExecuteCommandFromFile();
             vm.ReadFromMemory();
         }
     }
