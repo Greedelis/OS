@@ -73,9 +73,9 @@ namespace OS {
     public class Memory {
         private static int wordsPerBlock = 16;
         private static int blocks = 80;
-        //private Word[] m_data = new Word[wordsPerBlock*blocks]; // I don't fucking know
         private List<Word> m_data = new List<Word>(wordsPerBlock * blocks);
-        private int memoryPointer = 0;
+
+        private int m_pointer = -1;
 
         public Memory() {
             for (var i = 0; i < m_data.Capacity; i++) {
@@ -85,11 +85,23 @@ namespace OS {
         public string GetWordAsString(int blockNumber, int wordNumber){
             return m_data[16*blockNumber+wordNumber].IntoString();
         }
-        public bool ChangeMemoryPointer(int newPointer) {
-            if (newPointer < 0 && newPointer >= m_data.Count) //add conditions here I guess
-                return false;
-            memoryPointer = newPointer;
-            return true;
+
+        public uint GetMemoryPointer() {
+            if (m_pointer < 0 || m_pointer > wordsPerBlock * blocks)
+                throw new ArgumentOutOfRangeException($"Memory pointer is out of range: {m_pointer}");
+
+            return m_data[m_pointer].ToInt32();
+        }
+
+        public string GetMemoryPointerStr() {
+            if (m_pointer < 0 || m_pointer > wordsPerBlock * blocks)
+                throw new ArgumentOutOfRangeException($"Memory pointer is out of range: {m_pointer}");
+
+            return m_data[m_pointer].IntoString();
+        }
+
+        public void SetMemoryPointer(int blockNumber, int wordNumber) {
+            m_pointer = 16 * blockNumber + wordNumber;
         }
 
         public uint GetFromMemory(int blockNumber, int wordNumber) {

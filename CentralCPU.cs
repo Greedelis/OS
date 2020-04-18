@@ -32,7 +32,7 @@ namespace OS {
 
 
         public VM CreateVM() {
-            return new VM(this, m_parser, m_memory, hard,m_memory.ReserveMemory());
+            return new VM(this, m_parser, m_memory, hard, m_memory.ReserveMemory());
         }
 
         public void Test() { // Checks for interupts
@@ -236,85 +236,57 @@ namespace OS {
         public void SWAP(){
             (AX,BX) = (BX, AX);  // Sakyčiau visai cool swapas apsirašo
         }
-        
-        //------------------------------------------------------------------- Jump'ai, Not sure are correct mano mastymas cia
-        
-        //nesąlyginis jump į komandą adresu 16 * x + y
-        public void JP(int x, int y)
-        {
-            m_memory.ChangeMemoryPointer(16 * x + y);
+
+        /** Jumps **/
+
+        // Simple jump
+        public void JP(int x, int y) {
+            m_memory.SetMemoryPointer(x, y);
         }
 
-        //JMxy – Jump More, jei AX > BX (ZF ir CF yra 0), šoka į komandą adresu 16 * x + y
-        public void JM(int x, int y)
-        {
-            if (!ZF && !CF) //su flagais comparint ar AX > BX? // Yes, CMP paskutinis else tą padaro (pirmas if ==, antras AX < BX, paskutinis AX > BX)
-            {
-                m_memory.ChangeMemoryPointer(16 * x + y);
-            }
+        // Jump More, jei AX > BX (ZF ir CF yra 0)
+        public void JM(int x, int y) {
+            if (!ZF && !CF)
+                m_memory.SetMemoryPointer(x, y);
         }
 
-        //JLxy – Jump Less, jei AX < BX (CF = 1),  šoka į komandą adresu 16 * x + y
-        public void JL(int x, int y)
-        {
+        // Jump Less, jei AX < BX (CF = 1)
+        public void JL(int x, int y) {
             if (CF)
-            {
-                m_memory.ChangeMemoryPointer(16 * x + y);
-            }
+                m_memory.SetMemoryPointer(x, y);
         }
         
-        //JExy – Jump Equal, jei AX = BX (ZF = 1),  šoka į komandą adresu 16 * x + y
-        public void JE(int x, int y)
-        {
+        // Jump Equal, jei AX = BX (ZF = 1)
+        public void JE(int x, int y) {
             if (ZF)
-            {
-                m_memory.ChangeMemoryPointer(16 * x + y);
-            }
+                m_memory.SetMemoryPointer(x, y);
         }
         
-        //JNxy – Jump Not Equal, jei AX != BX (ZF = 0), šoka į komandą adresu 16 * x + y
-        public void JN(int x, int y)
-        {
+        // Jump Not Equal, jei AX != BX (ZF = 0)
+        public void JN(int x, int y) {
             if (!ZF)
-            {
-                m_memory.ChangeMemoryPointer(16 * x + y);
-            }
+                m_memory.SetMemoryPointer(x, y);
         }
         
-        //JXxy – Jump More or Equal, jei AX >= BX, šoka į komandą adresu 16 * x + y
-        public void JX(int x, int y)
-        {
-            if ((!ZF && !CF) || ZF) //fixed
-            {
-                m_memory.ChangeMemoryPointer(16 * x + y);
-            }
+        // Jump More or Equal, jei AX >= BX
+        public void JX(int x, int y) {
+            if ((!ZF && !CF) || ZF)
+                m_memory.SetMemoryPointer(x, y);
         }
         
-        //JYxy – Jump Less or Equal, jei AX <= BX, šoka į komandą adresu 16 * x + y
-        public void JY(int x, int y)
-        {
-            if (CF || ZF) // fixed
-            {
-                m_memory.ChangeMemoryPointer(16 * x + y);
-            }
+        // Jump Less or Equal, jei AX <= BX
+        public void JY(int x, int y) {
+            if (CF || ZF)
+                m_memory.SetMemoryPointer(x ,y);
         }
+
     //-------------------------------------------------------------------
 
     
-    public void HALT() //what does halt even do? closes the machine, resets it??? 
-    {
-        Environment.Exit(0);
-    }
-
-    
-
-    /* TODO:
-    •	HALT – programos valdymo pabaiga
-    •	SDx1x2 data$ - įdeda pradedant adresu 16 * x1 + x2 visą data, kuri baigiasi simboliu $ (store data)
-
-    
-
-    */
+        public void HALT() //what does halt even do? closes the machine, resets it??? 
+        {
+            Environment.Exit(0);
+        }
 
     }
 }
