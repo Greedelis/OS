@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace OS {
     public class CentralCPU {
@@ -23,7 +21,7 @@ namespace OS {
         private uint AX = 0;
         private uint BX = 0;
 
-        private int TI = 0;
+        private int TI = 150;
         private int PI = 0;
         private int SI = 0;
 
@@ -38,15 +36,26 @@ namespace OS {
         }
 
         public void Test() { // Checks for interupts
-            if (TI == 0) {
+            if (TI <= 0)
                 TimerInterupt();
+
+            switch (SI) {
+                case 0: // Normal value
+                    break;
+                case 1: // Prints AX
+                    Console.WriteLine(AX);
+                    break;
+                case 2: // Prints BX
+                    Console.WriteLine(BX);
+                    break;
             }
 
-
+            
         }
 
         public void TimerInterupt() {
-
+            Console.WriteLine("Timer is 0!");
+            TI = 150;
         }
 
         //------------------------------------------------------------------- Palyginimas
@@ -64,26 +73,28 @@ namespace OS {
                 ZF = false;
                 CF = false;
             }
+
+            TI--;
         }
 
     //------------------------------------------------------------------- Aritmetines
         public void ADD(){
             try{AX+=BX; }
             catch(OverflowException){
-                PI=1;
+                OF = true;
             }
             
         }
         public void SUB(){
             try{AX-=BX; }
             catch(OverflowException){
-                PI=1;
+                OF = true;
             }
         }
         public void MUL(){
             try{AX*=BX; }
             catch(OverflowException){
-                PI=1;
+                OF = true;
             }
         }
         public void DIV(){

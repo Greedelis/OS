@@ -83,6 +83,7 @@ namespace OS {
                 }
 
                 m_parser.ExecuteCommand(str);
+                m_cpu.Test();
 
                 currentWord++;
                 if (currentWord > 15) {
